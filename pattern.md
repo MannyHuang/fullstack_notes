@@ -12,3 +12,5 @@
 * 有些网络爬虫不执行 JavaScript
 
 
+## 当你在浏览器输入一个地址后发生了什么
+https://github.com/skyline75489/what-happens-when-zh_CN/blob/master/README.rst?utm_medium=social&utm_source=wechat_session&from=timeline&isappinstalled=0

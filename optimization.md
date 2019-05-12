@@ -15,3 +15,20 @@
 3. 如果图片为css图片，可以使用CSSsprite，SVGsprite等技术。
 4. 如果图片过大，可以使用特殊编码的图片，加载时会先加载一张压缩的特别厉害的缩略图，以提高用户体验。
 5. 如果图片展示区域小于图片的真实大小，应在服务器端根据业务需要先进行图片压缩，图片压缩后大小与展示一致。
+
+
+## 首屏时间、白屏时间
+Performance 接口可以获取到当前页面中与性能相关的信息。<br>
+该类型的对象可以通过调用只读属性 Window.performance 来获得。<br>
+白屏时间：
+```
+performance.timing.responseStart - performance.timing.navigationStart
+```
+首屏时间
+```
+window.onload = () => {
+    new Date() - performance.timing.responseStart
+}
+```
+https://developer.mozilla.org/zh-CN/docs/Web/API/Performance
+

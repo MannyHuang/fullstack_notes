@@ -21,6 +21,51 @@
 * Error
 * Symbol
 
+## this 是什么
+
+* 函数的调用方式决定了`this`的值
+* 在调用函数时使用`new`关键字，函数内的`this`是一个全新的对象。
+* 如果用`apply`、`call`或`bind`，this 就是作为参数传入这些方法的对象。
+* 当函数作为对象里的方法被调用时，函数内的`this`是调用该函数的对象。
+  * 比如`obj.method()`， this 将绑定到`obj`对象。
+* 如果调用函数不符合上述规则，那么`this`的值指向全局对象（global object）
+  * 浏览器环境下`this`的值指向`window`对象
+  * 但是如果`'use strict'`，`this`的值为`undefined`。
+* 箭头函数忽略上面的所有规则，`this`为它被创建时的上下文。
+
+
+## bind, call, apply的区别
+
+* bind, call, apply 都是改变调用者的this指向
+* call 和 apply 都是在调用时生效
+* bind 不是在调用时生效，而是返回一个新函数
+* call和apply其实是一样的，区别就在于传参时参数是一个一个传或者是以一个数组的方式来传
+
+
+```
+var fruit = { name: 'Apple' }
+function showDetails(size, price) {
+  console.log(this.name + ' ' + size + ': $' + price + '/kg')
+}
+
+showDetails.apply(fruit, ['small', 1])
+-> Apple small: $1/kg
+
+showDetails.call(fruit, 'medium', 5)
+-> Apple medium: $5/kg
+
+var bound = showDetails.bind(fruit, 'large', 10)
+bound()
+-> Apple large: $10/kg
+
+showDetails.bind(fruit, 'large', 10)()
+-> Apple large: $10/kg
+
+var bound = showDetails.bind(fruit)
+bound('medium', 7)
+-> Apple medium: $7/kg
+```
+
 ## 原型继承
 所有的JS对象都有一个prototype属性，指向它的原型对象。当试图访问一个对象的属性时，如果没有在该对象上找到，它还会搜寻该对象的原型，以及该对象的原型的原型，依次层层向上搜索，直到找到一个名字匹配的属性或到达原型链的末尾。
 
