@@ -21,21 +21,14 @@
 * Error
 * Symbol
 
-## this 是什么
-
-* 函数的调用方式决定了`this`的值
-* 在调用函数时使用`new`关键字，函数内的`this`是一个全新的对象。
-* 如果用`apply`、`call`或`bind`，this 就是作为参数传入这些方法的对象。
-* 当函数作为对象里的方法被调用时，函数内的`this`是调用该函数的对象。
-  * 比如`obj.method()`， this 将绑定到`obj`对象。
-* 如果调用函数不符合上述规则，那么`this`的值指向全局对象（global object）
-  * 浏览器环境下`this`的值指向`window`对象
-  * 但是如果`'use strict'`，`this`的值为`undefined`。
-* 箭头函数忽略上面的所有规则，`this`为它被创建时的上下文。
-
+## 如何确定this指向
+1. 由 new 调用：绑定到新创建的对象
+2. 由 call，apply，bind调用：绑定到指定的对象
+3. 函数作为对象里的方法被调用：函数内的`this`是调用该函数的对象
+4. 默认：在严格模式下绑定到 undefined ，否则绑定到全局对象。
+5. 箭头函数忽略以上规则，直接继承外层函数调用的this 绑定
 
 ## bind, call, apply的区别
-
 * bind, call, apply 都是改变调用者的this指向
 * call 和 apply 都是在调用时生效
 * bind 不是在调用时生效，而是返回一个新函数
@@ -98,6 +91,61 @@ const obj = new Obj(1)
 const obj = Object.create({a: 1})
 ```
 
+## 使用new创建一个对象经历了什么
+```
+function Test(){}
+const test = new Test()
+```
+
+1. 创建一个新对象：
+```
+const obj = {}
+```
+2. 设置新对象的constructor属性为构造函数的名称，设置新对象的__proto__属性指向构造函数的prototype对象
+```
+obj.constructor = Test
+obj.__proto__ = Test.prototype
+```
+3. 使用新对象调用函数，函数中的this被指向新实例对象
+```
+Test.call(obj)
+```
+4. 将初始化完毕的新对象地址，保存到等号左边的变量中
+
+
+## 对象浅拷贝和深拷贝有什么区别
+
+* 基本数据类型，拷贝是直接拷贝变量的值
+* 引用类型拷贝的其实是变量的地址
+* 浅拷贝：只对基本数据类型进行了拷贝，而对引用数据类型只是进行了引用的传递
+* 深拷贝：对引用数据类型进行拷贝的时候，创建了一个新的对象，并且复制其内的成员变量
+```
+let o1 = {a: 1}
+let o2 = o1
+
+o2.a = 3
+console.log(o1.a) // 3
+```
+
+## 怎么实现对象深拷贝
+简单方法
+```
+let obj2 = JSON.parse(JSON.stringify(obj1))
+```
+递归方法
+```
+function deepCopy(s) {
+    const d = {}
+    for (let k in s) {
+        if (typeof s[k] == 'object') {
+            d[k] = deepCopy(s[k])
+        } else {
+            d[k] = s[k]
+        }
+    }
+    return d
+}
+```
 
 
 ## ==和===的区别是什么
@@ -119,6 +167,46 @@ const obj = Object.create({a: 1})
 * 不可以使用`arguments`对象，该对象在函数体内不存在。如果要用，可以用 `rest` 参数代替。
 * 不可以使用`yield`命令，因此箭头函数不能用作 `Generator` 函数。
 * 箭头函数没有原型对象`prototype`
+
+## 闭包
+* 闭包是指有权访问另一个函数作用域中的变量的函数。
+```
+function sayHi(name) {
+    return () => {
+       console.log(`Hi! ${name}`)
+    }
+}
+const test = sayHi('xiaoming')
+test() // Hi! xiaoming
+```
+
+* sayHi函数执行完毕，但是其活动对象也不会被销毁，因为test函数仍然引用着sayHi函数中的变量name
+* 但因为闭包引用着sayHi函数的变量，导致另一个函数无法销毁，所以闭包使用过多，会占用较多的内存，这也是一个副作用。
+
+
+## 自执行函数是什么?
+* 声明一个匿名函数, 然后马上调用它
+* 好处：
+  * 截断作用域链，避免闭包造成引用变量无法释放
+  * 创建独立的作用域，防止变量弥散到全局，以免各种js库冲突
+
+自执行函数定义
+```
+(function () {
+  // body
+})();
+```
+
+ module pattern
+```
+var module = (function () {
+  // private
+  return {
+    // public
+  };
+}());
+```
+
 
 
 ## 如何判断数组与对象
