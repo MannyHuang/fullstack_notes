@@ -1,12 +1,17 @@
 # Network
 
 ## OSI 模型
-* 应用层: http
-* 传输层: tcp, https安全机制
-* 网络层(ip): 路由器
-* 数据链路层：交换机
+* 应用层: HTTP, FTP, POP3, SMTP, and SNMP
+* 传输层: host之间通讯
+  * TCP, UDP, HTTPS安全机制
+* 网络层(ip): 连接网络
+  * 路由器, IP, ICMP
+* 数据链路层：连接host
+  * 交换机, ethernet, arp
 * 物理层
 
+
+ 
 
 ## HTTP 状态码
 

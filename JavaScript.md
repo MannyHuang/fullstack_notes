@@ -219,18 +219,21 @@ Array.isArray({}) // false
 事件循环是一个单线程循环，用于监视调用堆栈并检查是否有工作即将在任务队列中完成。如果调用堆栈为空并且任务队列中有回调函数，则将回调函数出队并推送到调用堆栈中执行。
 
 
-## 事件绑定的方式
-* 嵌入dom
+## 3种事件绑定的方式
+* 首选方法：事件监听
+```
+btn.addEventListener('click',function(){})
+```
+
+* 方法2：嵌入dom
+  * 缺点：内容和逻辑不分离
 ```
 <button onclick="func()">按钮</button>
 ```
 
-* 直接绑定
+* 方法3: 直接绑定
+  * 缺点：一个事件只有一个事件处理
 ```
 btn.onclick = function(){}
 ```
 
-* 事件监听
-```
-btn.addEventListener('click',function(){})
-```
