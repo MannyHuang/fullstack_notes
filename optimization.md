@@ -1,16 +1,25 @@
 # Optimization
 
 ## 前端性能优化
-* 减少 HTTP 请求
-* 减少 DOM 操作
-* 避免不必要的重绘与重排
-* 优化 CSS 选择器（从右向左匹配）
-* CSS/JS minify，减少文件体积
-* 开启 Gzip 压缩
-* 将 CSS 放到顶部，JavaScript 放到尾部
-* 压缩图片以及使用 CSS Sprite
-* 使用 CDN 加速，适当进行文件缓存
+* 减少 HTTP 请求次数
+  * 在客户端重复利用数据
+* 对源码和传输进行压缩
+  * CSS/JS minify
+  * 开启 Gzip 压缩
+  * 压缩图片
+* 使用 CDN 加速
 * 合理控制 cookie 大小（每次请求都会包含 cookie）
+* HTML优化
+  * 将 CSS 放到顶部，JavaScript 放到尾部
+* DOM优化
+  * 用innerHTML代替DOM操作
+  * 减少 DOM 操作次数
+  * 避免不必要的重绘与重排
+* CSS优化
+  * 优化 CSS 选择器（从右向左匹配）
+  * 当需要设置的样式很多时设置className而不是直接操作style
+  * 使用 CSS Sprite
+  * 避免使用CSS Expression（css表达式)又称Dynamic properties(动态属性)
 
 ## 防抖与节流
 * 防抖(debounce)<br>

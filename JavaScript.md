@@ -1,13 +1,17 @@
 # JavaScript
 
 ## 数据类型
-1. Undefined 
-2. Null 
-3. Boolean 
-4. Number
-5. String 
-6. Object
-7. symbol(ES6新增)
+
+* 原始数据类型存在栈（stack）中
+  * Undefined，Null, Boolean, Number, String
+* 引用数据类型存在堆(heap)中
+  * Object, Array, Function
+
+## 原始数据类型 和 引用数据类型 的区别 ？
+* 存储位置不同
+* 原始数据类型直接存储在栈(stack)中的简单数据段，占据空间小、大小固定，属于被频繁使用数据，所以放入栈中存储
+* 引用数据类型存储在堆(heap)中的对象, 占据空间大、大小不固定。如果存储在栈中，将会影响程序运行的性能；
+* 引用数据类型在栈中存储了指针，该指针指向堆中该实体的起始地址。当解释器寻找引用值时，会首先检索其在栈中的地址，取得地址后从堆中获得实体
 
 ## 内置函数(原生函数)
 * String
@@ -20,6 +24,18 @@
 * RegExp
 * Error
 * Symbol
+
+## null 和 undefined 的区别？
+
+* null 表示“没有值”
+* undefined 表示一个变量声明了但没有初始化
+* undefined不是一个有效的JSON，而null是
+* undefined的类型(typeof)是undefined；
+* null的类型(typeof)是object；*
+* 在验证null时，一定要使用　=== ，因为 == 无法分别 null 和　undefined
+
+## Javascript作用链域?
+* 全局函数无法查看局部函数的内部细节，但局部函数可以查看其上层的函数细节，直至全局细节
 
 ## 如何确定this指向
 1. 由 new 调用：绑定到新创建的对象
@@ -236,4 +252,3 @@ btn.addEventListener('click',function(){})
 ```
 btn.onclick = function(){}
 ```
-
