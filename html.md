@@ -23,6 +23,21 @@
 4. 遍历渲染树开始布局，计算每个节点的位置大小信息。
 5. 将渲染树每个节点绘制到屏幕。
 
+
+## 简述一下你对HTML语义化的理解？
+* 用正确的标签做正确的事情。
+* html语义化让页面的内容结构化，结构更清晰
+* 便于搜索引擎解析
+
+
+## Doctype作用？标准模式与兼容模式各有什么区别?
+* “<!DOCTYPE>”声明位于HTML文档中的第一行
+* 告知浏览器用什么文档标准解析这个文档
+* DOCTYPE不存在或格式不正确会导致文档以兼容模式呈现。
+* 标准模式的排版 和JS运作模式都是以该浏览器支持的最高标准运行
+* 在兼容模式中，页面以宽松的向后兼容的方式显示
+
+
 ## img中的alt和元素的title属性作用
 * img的alt属性
   * 如果无法显示图像，浏览器将显示alt指定的内容
@@ -54,6 +69,38 @@
 * 搜索引擎的爬虫程序无法解读这种页面
 * 框架结构中出现各种滚动条
 * iframe页面会增加服务器的http请求
+
+
+
+## 什么是window对象? 什么是document对象?
+
+* window对象是指浏览器打开的窗口。
+* document对象是Documentd对象（HTML 文档对象）的一个只读引用，window对象的一个属性。
+
+
+## documen.write和 innerHTML的区别
+
+* document.write只能重绘整个页面
+* innerHTML可以重绘页面的一部分
+
+## DOM操作——怎样添加、移除、移动、复制、创建和查找节点?
+* 创建新节点
+* * 创建新节点
+
+* 创建新节点
+  * createDocumentFragment()    //创建一个DOM片段
+  * createElement()   //创建一个具体的元素
+  * createTextNode()   //创建一个文本节点*
+* 添加、移除、替换、插入
+  * appendChild()
+	* removeChild()
+  * replaceChild()
+	* insertBefore() //在已有的子节点前插入一个新的子节点
+* 查找
+  * getElementsByTagName()    //通过标签名称
+  * getElementsByName()    //通过元素的Name属性的值(IE容错能力较强，会得到一个数组，其中包括id等于name值的)
+  * getElementById()    //通过元素Id，唯一性
+
 
 
 ## Ascii、GBK、UTF、Unicode

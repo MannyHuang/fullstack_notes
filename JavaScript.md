@@ -43,6 +43,7 @@
 3. 函数作为对象里的方法被调用：函数内的`this`是调用该函数的对象
 4. 默认：在严格模式下绑定到 undefined ，否则绑定到全局对象。
 5. 箭头函数忽略以上规则，直接继承外层函数调用的this 绑定
+6. 在事件中，this指向触发这个事件的对象
 
 ## bind, call, apply的区别
 * bind, call, apply 都是改变调用者的this指向
@@ -75,8 +76,11 @@ bound('medium', 7)
 -> Apple medium: $7/kg
 ```
 
-## 原型继承
-所有的JS对象都有一个prototype属性，指向它的原型对象。当试图访问一个对象的属性时，如果没有在该对象上找到，它还会搜寻该对象的原型，以及该对象的原型的原型，依次层层向上搜索，直到找到一个名字匹配的属性或到达原型链的末尾。
+## 原型链是什么？
+
+* 所有的JS对象都有一个prototype属性，指向它的原型对象。
+* 当试图访问一个对象的属性时，如果没有在该对象上找到，它还会搜寻该对象的原型，以及该对象的原型的原型，依次层层向上搜索，直到找到一个名字匹配的属性或到达原型链的末尾。
+* 创建的每个新对象实体中并没有一份属于自己的原型副本。当我们修改原型时，与之相关的对象也会继承这一改变。
 
 
 ## 使用let, var和const有什么区别
@@ -185,7 +189,13 @@ function deepCopy(s) {
 * 箭头函数没有原型对象`prototype`
 
 ## 闭包
-* 闭包是指有权访问另一个函数作用域中的变量的函数。
+* 闭包是指可以访问另一个函数作用域中变量的函数
+* 利用闭包可以突破作用链域，将函数内部的变量和方法传递到外部。
+* 闭包的特征：
+  1. 函数内再嵌套函数
+  2. 内部函数可以引用外层的参数和变量
+  3. 参数和变量不会被垃圾回收机制回收
+
 ```
 function sayHi(name) {
     return () => {
@@ -281,3 +291,119 @@ btn.onclick = function(){}
   ```
 
 
+## Ajax 解决浏览器缓存问题？
+* RequestHeader 加上 ("If-Modified-Since","0")
+* RequestHeader 加上 ("Cache-Control","no-cache")
+* URL后面加上一个随机数："fresh=" + Math.random();
+* URL后面加上时间戳："nowtime=" + new Date().getTime();
+
+
+## JS中有一个函数，执行对象查找时永远不会去查找原型，这个函数是？
+
+* hasOwnProperty返回一个布尔值，指出一个对象是否具有指定名称的属性
+* 此方法无法检查该对象的原型链中是否具有该属性；该属性必须是对象本身的一个成员。
+
+
+## javascript 代码中的"use strict";是什么意思 ?
+
+* ES5 添加的（严格）运行模式
+* 消除Javascript语法的一些不合理、不严谨之处，减少一些怪异行为。
+* 不能在意外的情况下给全局变量赋值
+* 全局变量的显示声明,函数必须声明在顶层，
+* 不允许在非函数代码块内声明函数
+
+## eval是做什么的？
+* 它的功能是把对应的字符串解析成JS代码并运行
+* 应该避免使用eval，不安全，非常耗性能
+
+
+## AMD, CMD规范区别？
+* AMD (Asynchronous Module Definition)
+  * 所有的模块将被异步加载，模块加载不影响后面语句运行
+  * 所有依赖某些模块的语句均放置在回调函数中。
+
+* 对于依赖的模块，AMD 是提前执行，CMD 是延迟执行。
+* CMD 推崇依赖就近，AMD 推崇依赖前置
+
+```
+// CMD
+define(function(require, exports, module) {
+    var a = require('./a')
+    a.doSomething()
+    var b = require('./b') // 依赖可以就近书写
+    b.doSomething()
+    // ...
+})
+```
+
+```
+// AMD 默认推荐
+define(['./a', './b'], function(a, b) { // 依赖必须一开始就写好
+    a.doSomething()
+    b.doSomething()
+})
+```
+
+
+## Javascript如何实现继承？
+1、构造继承
+2、原型继承
+3、实例继承
+4、拷贝继承
+
+原型prototype机制或apply和call方法去实现较简单，建议使用构造函数与原型混合方式。
+
+	function Parent(){
+		this.name = 'wang';
+	}
+
+	function Child(){
+		this.age = 28;
+	}
+	Child.prototype = new Parent();//继承了Parent，通过原型
+
+	var demo = new Child();
+	alert(demo.age);
+	alert(demo.name);//得到被继承的属性
+
+
+
+## 创建对象的几种方式？
+
+* 对象字面量的方式
+```
+let person = { 
+  name : "Anand",
+  getName : function (){
+   return this.name
+  } 
+} 
+```
+
+* function 构造函数
+
+```
+function Person(name){
+  this.name = name
+  this.getName = function(){
+    return this.name
+  } 
+} 
+```
+
+* 用原型方式来创建
+
+```
+function Person(){};
+Person.prototype.name = "Anand";
+```
+
+* Function/Prototype combination
+```
+function Person(name){
+  this.name = name;
+} 
+Person.prototype.getName = function(){
+  return this.name
+} 
+```
