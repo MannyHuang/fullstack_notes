@@ -1,3 +1,21 @@
+## 页加载流程
+
+* 浏览器一边下载 HTML 网页，一边开始解析
+* 解析过程中，浏览器发现script元素，就暂停解析，把网页渲染的控制权转交给 JavaScript 引擎
+* 如果script元素引用了外部脚本，就下载该脚本再执行，否则就直接执行代码。
+* JavaScript 引擎执行完毕，控制权交还渲染引擎，恢复解析 HTML 网页。
+
+
+## 异步加载JS的方式有哪些？
+
+* 将script标签放到body底部 (本质还是同步的)
+* defer: 给script标签设置defer属性，将脚本文件设置为延迟加载
+  * 会再开启一个线程去下载js文件，同时继续解析HTML文档，等等HTML全部解析完毕DOM加载完成之后，再去执行加载好的js文件
+* async: 给script标签设置async属性
+  * 也是会开启一个线程去下载js文件，但和defer不同的时，它会在下载完成后立刻执行
+* 创建script，插入到DOM中，加载完毕后callBack
+
+
 ## 浏览器的渲染过程
 1. 解析HTML生成DOM树。
 2. 解析CSS生成CSSOM规则树。
@@ -25,6 +43,8 @@
 <input type="checkbox" id="test">
 <label for="test" >test</label>
 ```
+
+
 
 ## iframe框架有那些优缺点
 #### 优点：

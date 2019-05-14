@@ -3,7 +3,7 @@
 ## 数据类型
 
 * 原始数据类型存在栈（stack）中
-  * Undefined，Null, Boolean, Number, String
+  * Undefined，Null, Boolean, Number, String，Symbol
 * 引用数据类型存在堆(heap)中
   * Object, Array, Function
 
@@ -252,3 +252,32 @@ btn.addEventListener('click',function(){})
 ```
 btn.onclick = function(){}
 ```
+## cookies，sessionStorage 和 localStorage 的区别？
+
+* localStorage 存储持久数据，浏览器关闭后数据不丢失
+* sessionStorage 数据在当前窗口关闭后自动删除
+* cookie 过期时间之前一直有效，即使窗口或浏览器关闭
+  * 是为了标示用户身份而储存在客户端上的数据
+  * cookie数据始终在同源的http请求中携带，在浏览器和服务器间来回传递
+
+## WEB应用从服务器主动推送Data到客户端有那些方式？
+* html5提供的Websocket
+* 不可见的iframe (XHR长时间连接)
+
+## 模块化开发怎么做？
+
+* 使用立即执行函数，不暴露私有成员
+
+  ```
+  const module1 = (function() {
+        let _count = 0;
+  　　　　var m1 = function(){};
+  　　　　var m2 = function(){};
+  　　　　return {
+  　　　　　　m1 : m1,
+  　　　　　　m2 : m2
+  　　　　};
+  　　})();
+  ```
+
+
