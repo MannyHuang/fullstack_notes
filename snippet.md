@@ -36,11 +36,10 @@ console.log(randSort2(arr));
 ```
 function add(a, b) {
     if (b === undefined) {
-        return function(x) {
-            return a + x
+        return (x) => {
+            return a + x;
         }
     }
-
-    return a + b
+    return a + b;
 }
 ```

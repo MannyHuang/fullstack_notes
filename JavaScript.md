@@ -317,7 +317,21 @@ btn.onclick = function(){}
 * 应该避免使用eval，不安全，非常耗性能
 
 
-## AMD, CMD规范区别？
+## 什么是模块化开发？
+* 在浏览器中使用 ES6 的模块化支持
+  * import / export
+* 在 Node 中使用 commonjs 的模块化支持
+  * require / module.exports / exports
+* amd
+  * require / defined
+
+## requre 与 import 的区别？
+* require支持 动态导入，import不支持，正在提案 (babel 下可支持)
+* require是 同步 导入，import属于 异步 导入
+* require是 值拷贝，导出值变化不会影响导入值；import指向 内存地址，导入值会随导出值而变化
+
+# AMD 与 CMD的区别
+
 * AMD (Asynchronous Module Definition)
   * 所有的模块将被异步加载，模块加载不影响后面语句运行
   * 所有依赖某些模块的语句均放置在回调函数中。
@@ -407,3 +421,72 @@ Person.prototype.getName = function(){
   return this.name
 } 
 ```
+
+## 运算中的类型转换
+* -、*、/、% ：一律转换成数值后计算
+* +：
+  * 数字 + 字符串 = 字符串， 运算顺序是从左到右
+  * 数字 + 对象， 优先调用对象的valueOf -> toString
+  * 数字 + boolean/null -> 数字
+  * 数字 + undefined -> NaN
+
+* [1].toString() === '1'
+* NaN !== NaN 、+undefined 为 NaN
+
+
+# 浮点计算不准确
+* binary无法准确表达浮点数
+```
+console.log(0.1 + 0.2 == 0.3);
+// false
+```
+
+# callback执行顺序
+console.log('one');
+setTimeout(function () {
+  console.log('two');
+}, 0);
+Promise.resolve().then(function () {
+  console.log('three');
+})
+console.log('four');
+
+# 不同promise的区别
+doSomething().then(function () {
+  return doSomethingElse();
+});
+doSomething().then(function () {
+  doSomethingElse();
+});
+doSomething().then(doSomethingElse());
+doSomething().then(doSomethingElse);
+
+
+
+##  Explain event delegation.
+## Explain how prototypal inheritance works.
+## What language constructions do you use for iterating over object properties and array items?
+## `Array.forEach()` vs `Array.map()` 
+## What's the difference between host objects and native objects?
+## Explain the difference between: `function Person(){}`, `var person = Person()`, and `var person = new Person()`?
+## Explain the differences on the usage of `foo` between `function foo() {}` and `var foo = function() {}`
+## Explain `Function.prototype.bind`.
+## What's the difference between feature detection, feature inference, and using the UA string?
+## Describe event bubbling.
+## Describe event capturing.
+## What's the difference between an "attribute" and a "property"?
+## Explain the difference between mutable and immutable objects.
+## What is an example of an immutable object in JavaScript?
+## What are the pros and cons of immutability?
+## How can you achieve immutability in your own code?
+## What is event loop?
+## What is the difference between call stack and task queue?
+## What are the differences between ES6 class and ES5 function constructors?
+## What advantage is there for using the arrow syntax for a method in a constructor?
+## What is the definition of a higher-order function?
+## Can you give an example for destructuring an object or an array?
+## Can you give an example of a curry function and why this syntax offers an advantage?
+## What are the benefits of using `spread syntax` and how is it different from `rest syntax`?
+## How can you share code between files?
+## Why you might want to create static class members?
+ 

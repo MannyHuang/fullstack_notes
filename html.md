@@ -37,6 +37,12 @@
 * 标准模式的排版 和JS运作模式都是以该浏览器支持的最高标准运行
 * 在兼容模式中，页面以宽松的向后兼容的方式显示
 
+## 在哪放置CSS和JS？
+* CSS: in '<head>'
+  * if not at the top, browsers have to reflow the layout as CSS files load
+  * if not, browers will move elements around while the user is trying to interact with the page
+* JS: right before </body>
+  * browsers have to block processing the HTML while a JavaScript file loads
 
 ## img中的alt和元素的title属性作用
 * img的alt属性
@@ -112,3 +118,9 @@
 * UTF-8最大的一个特点，就是它是一种变长的编码方式。
   * 它可以使用1~4个字节表示一个符号，根据不同的符号而变化字节长度，当字符在ASCII码的范围时，就用一个字节表示，保留了ASCII字符一个字节的编码做为它的一部分，注意的是unicode一个中文字符占2个字节，而UTF-8一个中文字符占3个字节）。
 * 从unicode到utf-8并不是直接的对应，而是要过一些算法和规则来转换。
+
+
+## What are `data-` attributes good for?
+## Consider HTML5 as an open web platform. What are the building blocks of HTML5?
+## Why you would use a `srcset` attribute in an image tag? Explain the process the browser uses when evaluating the content of this attribute.
+## Have you used different HTML templating languages before?

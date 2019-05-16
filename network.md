@@ -133,3 +133,14 @@
   ```
   Content-Type:text/html
   ```
+
+
+## What are the differences between Long-Polling, Websockets and Server-Sent Events?
+## Explain the following request and response headers:
+  * Diff. between Expires, Date, Age and If-Modified-...
+  * Do Not Track
+  * Cache-Control
+  * Transfer-Encoding
+  * ETag
+  * X-Frame-Options
+## What is domain pre-fetching and how does it help with performance?
