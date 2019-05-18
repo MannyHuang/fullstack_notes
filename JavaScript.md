@@ -526,19 +526,13 @@ generator.next()  // { value: undefined, done: true }
 
 
 ## 防抖与节流
-* 防抖(debounce)<br>
-在函数需要频繁触发时，只有当有足够空闲的时间时，才执行一次。
-例子：搜索框预览搜索结果
-
-* 节流(thorttle)<br>
-预定一个函数只有在大于等于执行周期时才执行，周期内调用不执行
-
-## 防抖与节流
-* 防抖与节流函数是最常用的 高频触发优化方式，对性能有较大帮助
+* 防抖与节流函数是最常用的 高频触发优化方式
 * 防抖 (debounce): 
   * 将多次高频操作优化为只在最后一次执行，通常使用的场景是：用户输入，只需再输入完成后做一次输入校验即可。
+  * 例子：搜索框预览搜索结果
 * 节流(throttle):
-  *  每隔一段时间后执行一次，也就是降低频率，将高频操作优化成低频操作，通常使用场景: 滚动条事件 或者 resize 事件，通常每隔 100~500 ms执行一次即可。
+  *  每隔一段时间后执行一次，也就是降低频率，将高频操作优化成低频操作，
+  *  通常使用场景: 滚动条事件 通常每隔 100~500 ms执行一次即可。
 
 
 function debounce(fn, wait, immediate) {
@@ -610,4 +604,84 @@ function throttle(fn, wait, immediate) {
 ## Why you might want to create static class members?
  
 
- # 什么是执行上下文(EC)
+## 什么是执行上下文(EC)
+
+## 原型 / 构造函数 / 实例 之间的关系
+
+## 原型链
+## 变量对象
+
+## 继承
+* 最优化: 圣杯模式
+var inherit = (function(c,p){
+var F = function(){};
+return function(c,p){
+		F.prototype = p.prototype;
+		c.prototype = new F();
+		c.uber = p.prototype;
+		c.prototype.constructor = c;
+	}
+})();
+
+*  ES6 的语法糖 class / extends
+
+
+## 浏览器架构
+* 用户界面
+* 主进程
+* 内核
+  * 渲染引擎
+  * JS 引擎
+    * 执行栈
+  * 事件触发线程
+    * 消息队列
+      * 微任务
+      * 宏任务
+  * 网络异步线程
+  * 定时器线程
+
+
+## Node 的 Event Loop
+* timer 阶段: 执行到期的setTimeout / setInterval队列回调
+* I/O 阶段: 执行上轮循环残流的callback
+* idle, prepare
+* poll: 等待回调
+  * 执行回调
+  * 执行定时器
+    * 如有到期的setTimeout / setInterval， 则返回 timer 阶段
+    * 如有setImmediate，则前往 check 阶段
+* check
+  * 执行setImmediate
+* close callbacks
+
+## 浏览器 的 Event Loop
+* 执行一个宏任务，然后执行清空微任务列表，循环再执行宏任务，再清微任务列表
+* 微任务 microtask(jobs): promise / ajax 
+* 宏任务 macrotask(task): setTimout / script / IO / UI Rendering
+
+## Web worker
+* 现代浏览器为JavaScript创造的 多线程环境
+* 可以新建并将部分任务分配到worker线程并行运行
+* 两个线程可 独立运行，互不干扰，
+* 可通过自带的 消息机制 相互通信
+
+'''
+// 创建 worker
+const worker = new Worker('work.js');
+
+// 向主进程推送消息
+worker.postMessage('Hello World');
+
+// 监听主进程来的消息
+worker.onmessage = function (event) {
+  console.log('Received message ' + event.data);
+}
+'''
+
+## 内存泄露的原因
+* 意外的全局变量: 无法被回收
+* 定时器: 未被正确关闭，导致所引用的外部变量无法被释放
+* 事件监听: 没有正确销毁 (低版本浏览器可能出现)
+* 闭包: 会导致父级中的变量无法被释放
+* dom 元素被删除时，内存中的引用未被正确清空
+

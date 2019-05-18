@@ -1,5 +1,19 @@
 # React
 
+
+## React 核心流程
+* reconciliation (调度算法，也可称为 render):
+
+  * 更新 state 与 props；
+  * 调用生命周期钩子；
+  * 生成 virtual dom；
+    * 这里应该称为 Fiber Tree 更为符合；
+  * 通过新旧 vdom 进行 diff 算法，获取 vdom change；
+  * 确定是否需要重新渲染
+* commit:
+  * 如需要，则操作 dom 节点更新
+
+
 ## React 生命周期
 
 * 初始化过程

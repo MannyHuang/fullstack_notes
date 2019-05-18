@@ -1,8 +1,4 @@
----
-title: CSS Questions
-layout: layouts/page.njk
-permalink: /questions/css-questions/index.html
----
+
 
 * What is CSS selector specificity and how does it work?
 * What's the difference between "resetting" and "normalizing" CSS? Which would you choose, and why?
@@ -35,3 +31,23 @@ permalink: /questions/css-questions/index.html
 * Can you explain the difference between coding a web site to be responsive versus using a mobile-first strategy?
 * Have you ever worked with retina graphics? If so, when and what techniques did you use?
 * Is there any reason you'd want to use `translate()` instead of *absolute positioning*, or vice-versa? And why?
+
+## 盒子模型
+* 页面渲染时，dom 元素所采用的 布局模型
+* 可通过box-sizing进行设置。
+* 根据计算宽高的区域可分为：
+  * content-box (W3C 标准盒模型)
+  * border-box (IE 盒模型)
+  * padding-box
+  * margin-box (浏览器未实现)
+
+
+## 选择器优先级
+* !important > 行内样式 > #id > .class > tag > * > 继承 > 默认
+* 选择器 从右往左 解析
+
+## link 与 @import 的区别
+
+* link功能较多，可以定义 RSS，定义 Rel 等作用，而@import只能用于加载 css
+* 当解析到link时，页面会同步加载所引的 css，而@import所引用的 css 会等到页面加载完才被加载
+* link可以使用 js 动态引入，@import不行

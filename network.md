@@ -112,6 +112,27 @@
 * 断TCP连接
   * 发送了请求数据后关闭TCP连接
 
+## TCP三次握手
+* 建立连接前，客户端和服务端需要通过握手来确认对:
+* 客户端发送 syn(同步序列编号) 请求
+  * 进入 syn_send 状态，等待确认
+* 服务端接收并确认 syn 包后发送 syn+ack 包
+  * 进入 syn_recv 状态
+* 客户端接收 syn+ack 包后，发送 ack 包
+  * 双方进入 established 状态
+
+## TCP四次挥手
+
+* 客户端 -- FIN --> 服务端， FIN—WAIT
+* 服务端 -- ACK --> 客户端， CLOSE-WAIT
+* 服务端 -- ACK,FIN --> 客户端， LAST-ACK
+* 客户端 -- ACK --> 服务端，CLOSED
+
+# Websocket
+* Websocket 是一个 持久化的协议
+* 基于 http
+* 服务端可以 主动 push
+
 ## 如何处理不让别人盗用你的图片，访问你的服务器资源
 * http header, 对refer做判断看来源是不是自己的网站，如果不是就拒绝
 * 通过session校验，如果不通过特定服务生成cookie和session就不能请求得到资源
@@ -144,3 +165,4 @@
   * ETag
   * X-Frame-Options
 ## What is domain pre-fetching and how does it help with performance?
+

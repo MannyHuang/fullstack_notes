@@ -12,7 +12,7 @@
 * 有些网络爬虫不执行 JavaScript
 
 
-## 当你在浏览器输入一个地址后发生了什么
+## 从输入 url 到展示的过程 （复杂版）
 https://github.com/skyline75489/what-happens-when-zh_CN/blob/master/README.rst?utm_medium=social&utm_source=wechat_session&from=timeline&isappinstalled=0
 
 
@@ -27,6 +27,22 @@ https://github.com/skyline75489/what-happens-when-zh_CN/blob/master/README.rst?u
 9、文档树建立，根据标记请求所需指定MIME类型的文件（比如css、js）,同时设置了cookie;
 10、页面开始渲染DOM，JS根据DOM API操作DOM,执行事件绑定等，页面显示完成。
 
+
+## 从输入 url 到展示的过程 （简化版）
+* DNS 解析
+* TCP 三次握手
+* 发送请求，分析 url，设置请求报文(头，主体)
+* 服务器返回请求的文件 (html)
+* 浏览器渲染
+  * HTML parser --> DOM Tree
+    * 标记化算法，进行元素状态的标记
+    * dom 树构建
+  * CSS parser --> Style Tree
+    * 解析 css 代码，生成样式树
+  * attachment --> Render Tree
+    * 结合 dom树 与 style树，生成渲染树
+  * layout: 布局
+  * GPU painting: 像素绘制页面
 
 ## 什么叫优雅降级和渐进增强？
 

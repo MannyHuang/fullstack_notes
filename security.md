@@ -10,11 +10,12 @@
 <script>alert(document.cookie)</script>
 ```
  
-### 如何防范
+### 防御
 * 过滤JavaScript 事件的标签。例如 "onclick=", "onfocus" 等等
 * 过滤特殊的Html标签， 例如: script, iframe
 * 对数据进行Html Encode 处理
 * 表单数据规定值的类型，例如：年龄应为只能为int、name只能为字母数字组合。。。。
+* cookie 设置 httpOnly
 
 
 ## CSRF（Cross-site request forgery）
