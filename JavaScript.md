@@ -461,6 +461,125 @@ doSomething().then(function () {
 doSomething().then(doSomethingElse());
 doSomething().then(doSomethingElse);
 
+## 函数柯里化 （currying）
+* 把接受多个参数的函数变换成接受单一参数的函数
+* 返回接受余下的参数而且返回结果的新函数
+```
+const add = function add(x) {
+	return function (y) {
+		return x + y
+	}
+}
+
+const add1 = add(1)
+
+add1(2) === 3
+```
+
+
+## array 常用函数
+* map: 遍历数组，返回回调返回值组成的新数组
+* forEach: 无法break，可以用try/catch中throw new Error来停止
+* filter: 过滤
+* some: 有一项返回true，则整体为true
+* every: 有一项返回false，则整体为false
+* join: 通过指定连接符生成字符串
+* push / pop: 末尾推入和弹出，改变原数组， 返回推入/弹出项
+* unshift: 头部推入, 改变原数组，返回列表长度
+* shift: 头部弹出, 改变原数组，返回列表长度
+* sort(fn) / reverse: 排序与反转，改变原数组
+* concat: 连接数组，不影响原数组， 浅拷贝
+* slice(start, end): 返回截断后的新数组，不改变原数组
+* splice(start, number, value...): 返回或替换元素，value 为插入项，改变原数组
+* indexOf / lastIndexOf(value, fromIndex): 查找数组项，返回对应的下标
+* reduce / reduceRight(fn(prev, cur)， defaultPrev): 两两执行，prev 为上次化简函数的return值，cur 为当前值(从第二项开始)
+
+## 异步解决方案
+* Promise
+* generator
+* await / async
+  * 是generator的语法糖， babel中是基于promise实现。
+
+
+## generator 是什么？
+* 异步解决方案的一种
+* yield: 暂停代码
+* next(): 继续执行代码
+
+```
+function* helloWorld() {
+  yield 'hello';
+  yield 'world';
+  return 'ending';
+}
+
+const generator = helloWorld();
+
+generator.next()  // { value: 'hello', done: false }
+
+generator.next()  // { value: 'world', done: false }
+
+generator.next()  // { value: 'ending', done: true }
+
+generator.next()  // { value: undefined, done: true }
+```
+
+
+## 防抖与节流
+* 防抖(debounce)<br>
+在函数需要频繁触发时，只有当有足够空闲的时间时，才执行一次。
+例子：搜索框预览搜索结果
+
+* 节流(thorttle)<br>
+预定一个函数只有在大于等于执行周期时才执行，周期内调用不执行
+
+## 防抖与节流
+* 防抖与节流函数是最常用的 高频触发优化方式，对性能有较大帮助
+* 防抖 (debounce): 
+  * 将多次高频操作优化为只在最后一次执行，通常使用的场景是：用户输入，只需再输入完成后做一次输入校验即可。
+* 节流(throttle):
+  *  每隔一段时间后执行一次，也就是降低频率，将高频操作优化成低频操作，通常使用场景: 滚动条事件 或者 resize 事件，通常每隔 100~500 ms执行一次即可。
+
+
+function debounce(fn, wait, immediate) {
+    let timer = null
+
+    return function() {
+        let args = arguments
+        let context = this
+
+        if (immediate && !timer) {
+            fn.apply(context, args)
+        }
+
+        if (timer) clearTimeout(timer)
+        timer = setTimeout(() => {
+            fn.apply(context, args)
+        }, wait)
+    }
+}
+
+function throttle(fn, wait, immediate) {
+    let timer = null
+    let callNow = immediate
+    
+    return function() {
+        let context = this,
+            args = arguments
+
+        if (callNow) {
+            fn.apply(context, args)
+            callNow = false
+        }
+
+        if (!timer) {
+            timer = setTimeout(() => {
+                fn.apply(context, args)
+                timer = null
+            }, wait)
+        }
+    }
+}
 
 
 ##  Explain event delegation.
@@ -490,3 +609,5 @@ doSomething().then(doSomethingElse);
 ## How can you share code between files?
 ## Why you might want to create static class members?
  
+
+ # 什么是执行上下文(EC)
