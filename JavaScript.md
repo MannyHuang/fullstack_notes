@@ -685,3 +685,62 @@ worker.onmessage = function (event) {
 * 闭包: 会导致父级中的变量无法被释放
 * dom 元素被删除时，内存中的引用未被正确清空
 
+
+## 判断数组类型的3个方法
+var arr = [];
+arr instanceof Array; // true
+Object.prototype.toString.call(arr) === '[object Array]' // toString
+Array.isArray(arr); // es5
+
+
+## 介绍下 Set、Map、WeakSet 和 WeakMap 的区别？
+
+
+## 介绍下深度优先遍历和广度优先遍历，如何实现？
+
+## 请分别用深度优先思想和广度优先思想实现一个拷贝函数
+
+## ES5/ES6 的继承除了写法以外还有什么区别？
+
+## setTimeout、Promise、Async/Await 的区别？
+
+## setTimeout, Async, Promise的执行顺序
+```
+async function async1() {
+    console.log('async1 start');
+    await async2();
+    console.log('async1 end');
+}
+async function async2() {
+    console.log('async2');
+}
+console.log('script start');
+setTimeout(function() {
+    console.log('setTimeout');
+}, 0)
+async1();
+new Promise(function(resolve) {
+    console.log('promise1');
+    resolve();
+}).then(function() {
+    console.log('promise2');
+});
+console.log('script end');
+```
+
+## 第 12 题：JS 异步解决方案的发展历程以及优缺点。
+
+
+## 第 13 题：Promise 构造函数是同步执行还是异步执行，那么 then 方法呢？
+
+## 如何实现一个 new
+
+## 简单讲解一下http2的多路复用
+
+## 浏览器和 Node 事件循环的区别
+
+## 全局作用域中，用 const 和 let 声明的变量不在 window 上，那到底在哪里？如何去获取？
+
+## cookie 和 token 都存放在 header 中，为什么不会劫持 token？
+
+## Virtual DOM 真的比操作原生 DOM 快吗？谈谈你的想法

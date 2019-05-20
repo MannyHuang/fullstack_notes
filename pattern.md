@@ -53,3 +53,5 @@ https://github.com/skyline75489/what-happens-when-zh_CN/blob/master/README.rst?u
   * 针对旧环境设计，针对新环境优化
 
 ## 知道什么是singleton, factory, strategy, decrator， MVVM么?
+
+## 介绍下观察者模式和订阅-发布模式的区别，各自适用于什么场景
