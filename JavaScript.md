@@ -171,6 +171,7 @@ function deepCopy(s) {
 ## ==和===的区别是什么
 * `==`是抽象相等运算符，而`===`是严格相等运算符。
 * `==`运算符是在进行必要的类型转换后，再比较。`===`运算符不会进行类型转换，所以如果两个值不是相同的类型，会直接返回`false`
+* 引用类型在比较运算符时候,隐式转换会调用本类型toString或valueOf方法
 * 使用`==`时，可能发生一些特别的事情，例如：
 ```js
 1 == '1'; // true
@@ -654,10 +655,13 @@ return function(c,p){
   * 执行setImmediate
 * close callbacks
 
-## 浏览器 的 Event Loop
-* 执行一个宏任务，然后执行清空微任务列表，循环再执行宏任务，再清微任务列表
-* 微任务 microtask(jobs): promise / ajax 
-* 宏任务 macrotask(task): setTimout / script / IO / UI Rendering
+## 浏览器 Event Loop 的执行顺序
+* 同步代码 => microstask(events) => macrotask(events)
+* 微任务 microtask
+  * promise / ajax 
+* 宏任务 macrotask
+  * script
+  * setTimout / IO / UI Rendering
 
 ## Web worker
 * 现代浏览器为JavaScript创造的 多线程环境
