@@ -260,7 +260,7 @@ btn.addEventListener('click',function(){})
 <button onclick="func()">按钮</button>
 ```
 
-* 方法3: 获得dom元素后绑定 （和方法2等价）
+* 方法3: 获得dom元素后绑定 （和方法2等价
   * 缺点：一个事件只有一个事件处理
 ```
 btn.onclick = function(){}
