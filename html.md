@@ -9,12 +9,23 @@
 ## 异步加载JS的方式有哪些？
 
 * 将script标签放到body底部 (本质还是同步的)
+  * 缺点：必须先等待html加载
 * defer: 给script标签设置defer属性，将脚本文件设置为延迟加载
-  * 会再开启一个线程去下载js文件，同时继续解析HTML文档，等等HTML全部解析完毕DOM加载完成之后，再去执行加载好的js文件
+  * 平行下载js文件，同时继续解析HTML文档
+  * 等等HTML全部解析完毕DOM加载完成之后，再去执行加载好的js文件
+  * js文件下载是平行的，但保证js文件执行顺序
 * async: 给script标签设置async属性
-  * 也是会开启一个线程去下载js文件，但和defer不同的时，它会在下载完成后立刻执行
-* 创建script，插入到DOM中，加载完毕后callBack
-
+  * 平行下载js文件，会在下载完成后立刻执行
+  * 每个script之间完全独立，不确保执行顺序
+  * 例子：google analytics
+* 动态创建script，插入到DOM中
+  * 插入DOM后开始加载
+  * 默认和 “async” 等价
+```
+let script = document.createElement('script');
+script.src = "/article/script-async-defer/long.js";
+document.body.append(script); // (*)
+```
 
 ## 浏览器的渲染过程
 1. 解析HTML生成DOM树。
@@ -91,9 +102,6 @@
 
 ## DOM操作——怎样添加、移除、移动、复制、创建和查找节点?
 * 创建新节点
-* * 创建新节点
-
-* 创建新节点
   * createDocumentFragment()    //创建一个DOM片段
   * createElement()   //创建一个具体的元素
   * createTextNode()   //创建一个文本节点*
@@ -143,7 +151,23 @@
 * 从unicode到utf-8并不是直接的对应，而是要过一些算法和规则来转换。
 
 
+## 事件冒泡
+* When an event happens on an element, it first runs the handlers on it, then all the way up on ancestors.
+* event.target: element that initiated the event
+* event.currentTarget: the current element with event handler
+
+## 事件捕捉
+* 3 phases of dom events
+  * Capturing phase – the event goes down to the element.
+  * Target phase – the event reached the target element.
+  * Bubbling phase – the event bubbles up from the element.
+* elem.addEventListener(..., true)
+
+## 事件代理
+
+
 ## What are `data-` attributes good for?
 ## Consider HTML5 as an open web platform. What are the building blocks of HTML5?
 ## Why you would use a `srcset` attribute in an image tag? Explain the process the browser uses when evaluating the content of this attribute.
 ## Have you used different HTML templating languages before?
+
