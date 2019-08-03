@@ -18,27 +18,55 @@
 - How would you implement a web design comp that uses non-standard fonts?
 - Explain how a browser determines what elements match a CSS selector.
 - Describe pseudo-elements and discuss what they are used for.
-- Explain your understanding of the box model and how you would tell the browser in CSS to render your layout in different box models.
 - What does `* { box-sizing: border-box; }` do? What are its advantages?
 - What is the CSS `display` property and can you give a few examples of its use?
-- What's the difference between inline and inline-block?
 - What's the difference between the "nth-of-type()" and "nth-child()" selectors?
 - What's the difference between a relative, fixed, absolute and statically positioned element?
-- What existing CSS frameworks have you used locally, or in production? How would you change/improve them?
-- Have you played around with the new CSS Flexbox or Grid specs?
 - Can you explain the difference between coding a web site to be responsive versus using a mobile-first strategy?
 - Have you ever worked with retina graphics? If so, when and what techniques did you use?
 - Is there any reason you'd want to use `translate()` instead of _absolute positioning_, or vice-versa? And why?
 
-## 盒子模型
+## 盒模型
 
-- 页面渲染时，dom 元素所采用的 布局模型
+- 页面渲染 DOM 元素所采用的 布局模型
+  - margin + border + padding + content
 - 可通过 box-sizing 进行设置。
-- 根据计算宽高的区域可分为：
+- 根据计算宽高的方法可分为：
   - content-box (W3C 标准盒模型)
+    - 宽高指 content
   - border-box (IE 盒模型)
-  - padding-box
-  - margin-box (浏览器未实现)
+  - - 宽高指 border + padding + content
+- 正常模式下所有浏览器都是 W3C 盒子模型
+
+# CSS 样式覆盖规则
+
+- 由于继承而发生样式冲突时，最近祖先获胜。
+- 继承的样式和直接指定的样式冲突时，直接指定的样式获胜
+- 直接指定的样式发生冲突时，样式权值高者获胜
+  - 选择器优先级： !important > 行内样式 > #id > .class > tag > \* > 继承 > 默认
+  - 选择器 从右往左 解析
+- 样式权值相同时，后者获胜。
+- !important 的样式属性不被覆盖
+
+## 块级元素 vs 行内元素
+
+- 块级元素（block）
+  - 占据其父元素（容器）的整个空间
+  - 通常浏览器会在块级元素前后另起一个新行
+  - 例子：<div>，<h1>~<h6>，<p>，<ul>
+- 行内元素（inline）
+  - 一个行内元素只占据它对应标签的边框所包含的空间
+  - 包含其自身及其他行内元素
+  - 例子：<span>，<a>，<input>，<button>
+- 行内块元素（inline-block）
+  - 和 inline 一样，但可以设宽高
+- 区别
+  - 一般行内元素只能包含数据和其他行内元素，块级元素可以包含行内元素和自身及其他块级元素。
+  - 默认情况下块级元素占用一整行，而行内元素占据自身宽度空间
+  - 宽高只对块级元素生效
+  - 行内元素只能设置 padding 及左右 margin，上下 margin 无用
+  - 设置 padding 时左右推开距离，上下会延申出去，但不会增加上下两行间的距离。
+  - 如果给行内元素设定绝对定位，会隐形的改变 a 的 display 为 inline-block，此时就可以把 a 当成块元素一样设置宽高了。
 
 ## 垂直水平剧中方案
 
@@ -85,10 +113,16 @@
 }
 ```
 
-## 选择器优先级
+## 隐藏方案
 
-- !important > 行内样式 > #id > .class > tag > \* > 继承 > 默认
-- 选择器 从右往左 解析
+```
+{ display: none; }  <= 导致页面重绘，不占用空间
+{ visibility: hidden; } <= 不会导致页面重绘，仍占用空间
+{ height: 0; overflow: hidden; }
+{ position: absolute; top: -999em; }
+{ position: relative; top: -999em; }
+{ position: absolute; visibility: hidden; }
+```
 
 ## link 与 @import 的区别
 
