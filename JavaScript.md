@@ -27,18 +27,19 @@
 - Error
 - Symbol
 
-## null 和 undefined 的区别？
+## null 和 undefined 的区别
 
 - null 表示“没有值”
 - undefined 表示一个变量声明了但没有初始化
 - undefined 不是一个有效的 JSON，而 null 是
-- undefined 的类型(typeof)是 undefined；
-- null 的类型(typeof)是 object；\*
+- undefined 的类型(typeof)是 undefined
+- null 的类型(typeof)是 object
 - 在验证 null 时，一定要使用　=== ，因为 == 无法分别 null 和　 undefined
 
 ## Javascript 作用链域?
 
-- 全局函数无法查看局部函数的内部细节，但局部函数可以查看其上层的函数细节，直至全局细节
+- 全局函数无法查看局部函数的内部细节
+- 局部函数可以查看其上层的函数细节，直至全局细节
 
 ## 如何确定 this 指向
 
@@ -54,10 +55,13 @@
 - bind, call, apply 都是改变调用者的 this 指向
 - call 和 apply 都是在调用时生效
 - bind 不是在调用时生效，而是返回一个新函数
-- call 和 apply 其实是一样的，区别就在于传参时参数是一个一个传或者是以一个数组的方式来传
+- call 和 apply 唯一区别就在于传参的形式
+  - call:一个一个传
+  - apply: 一个数组的方式来传
+- 是一个一个传或者是以一个数组的方式来传
 
-```
-var fruit = { name: 'Apple' }
+```js
+let fruit = { name: 'Apple' }
 function showDetails(size, price) {
   console.log(this.name + ' ' + size + ': $' + price + '/kg')
 }
@@ -85,6 +89,103 @@ bound('medium', 7)
 - 所有的 JS 对象都有一个 prototype 属性，指向它的原型对象。
 - 当试图访问一个对象的属性时，如果没有在该对象上找到，它还会搜寻该对象的原型，以及该对象的原型的原型，依次层层向上搜索，直到找到一个名字匹配的属性或到达原型链的末尾。
 - 创建的每个新对象实体中并没有一份属于自己的原型副本。当我们修改原型时，与之相关的对象也会继承这一改变。
+
+## 原型 / 构造函数 / 实例
+
+```js
+const instance = new Object(); // 实例
+const prototype = instance.__proto__; // 原型
+const constructor = prototype.constructor; // 构造函数
+```
+
+## 执行上下文
+
+- 它包含 3 个部分:
+
+  - this 指向
+  - 变量对象(VO)：存储着该执行上下文中的所有 变量和函数声明(不包含函数表达式)
+
+    - 活动对象 (AO): 当变量对象所处的上下文为 active EC 时，称为活动对象。
+
+  - 作用域链(词法作用域)
+
+    - 声明提前: 一个声明在函数体内都是可见的, 函数优先于变量
+    - 非匿名自执行函数，函数变量为 只读 状态，无法修改
+
+```js
+let foo = function() {
+  console.log(1);
+};
+(function foo() {
+  foo = 10; // 由于foo在函数中只为可读，因此赋值无效
+  console.log(foo);
+})();
+
+// 结果打印：  ƒ foo() { foo = 10 ; console.log(foo) }
+```
+
+- ec 分为 3 种类型:
+
+  - 全局执行上下文
+  - 函数执行上下文
+  - eval 执行上下文
+
+- 代码执行过程:
+  - 创建 全局上下文 (global EC)
+  - 全局执行上下文 (caller) 逐行 自上而下执行。
+  - 遇到函数时，函数执行上下文 (callee) 被 push 到执行栈顶层
+  - 函数执行上下文被激活，成为 active EC, 开始执行函数中的代码，caller 被挂起
+  - 函数执行完后，callee 被 pop 移除出执行栈，控制权交还全局上下文 (caller)，继续执行
+
+## 闭包
+
+- 闭包是指可以访问另一个函数作用域中变量的函数
+- 闭包属于一种特殊的作用域，称为 静态作用域
+- 可以理解为父函数被销毁 的情况下，返回出的子函数的[[scope]]中仍然保留着父级的变量对象和作用域链，因此可以继续访问到父级的变量对象
+- 利用闭包可以突破作用链域，将函数内部的变量和方法传递到外部。
+- 闭包的特征：
+  1. 函数内再嵌套函数
+  2. 内部函数可以引用外层的参数和变量
+  3. 参数和变量不会被垃圾回收机制回收
+
+```
+function sayHi(name) {
+    return () => {
+       console.log(`Hi! ${name}`)
+    }
+}
+const test = sayHi('xiaoming')
+test() // Hi! xiaoming
+```
+
+- sayHi 函数执行完毕，但是其活动对象也不会被销毁，因为 test 函数仍然引用着 sayHi 函数中的变量 name
+- 但因为闭包引用着 sayHi 函数的变量，导致另一个函数无法销毁，所以闭包使用过多，会占用较多的内存，这也是一个副作用。
+
+## 自执行函数是什么?
+
+- 声明一个匿名函数, 然后马上调用它
+- 好处：
+  - 截断作用域链，避免闭包造成引用变量无法释放
+  - 创建独立的作用域，防止变量弥散到全局，以免各种 js 库冲突
+
+自执行函数定义
+
+```js
+(function() {
+  // body
+})();
+```
+
+module pattern
+
+```js
+var module = (function() {
+  // private
+  return {
+    // public
+  };
+})();
+```
 
 ## 使用 let, var 和 const 有什么区别
 
@@ -122,68 +223,57 @@ const obj = Object.create({ a: 1 });
 
 ## 使用 new 创建一个对象经历了什么
 
-```
-function Test(){}
-const test = new Test()
-```
+- 创建一个新对象
+- 设置新对象的**proto**属性指向构造函数的 prototype 对象
+- 使用新对象调用函数，函数中的 this 被指向新实例对象
+- 如果结果是 Object 类型，return object
 
-1. 创建一个新对象：
-
-```
-const obj = {}
-```
-
-2. 设置新对象的 constructor 属性为构造函数的名称，设置新对象的**proto**属性指向构造函数的 prototype 对象
-
-```
-obj.constructor = Test
-obj.__proto__ = Test.prototype
+```js
+function _new(fn, ...arg) {
+  const obj = Object.create(fn.prototype);
+  const ret = fn.apply(obj, arg);
+  return ret instanceof Object ? ret : obj;
+}
 ```
 
-3. 使用新对象调用函数，函数中的 this 被指向新实例对象
-
-```
-Test.call(obj)
-```
-
-4. 将初始化完毕的新对象地址，保存到等号左边的变量中
-
-## 对象浅拷贝和深拷贝有什么区别
+## 对象浅拷贝 vs 深拷贝
 
 - 基本数据类型，拷贝是直接拷贝变量的值
 - 引用类型拷贝的其实是变量的地址
 - 浅拷贝：只对基本数据类型进行了拷贝，而对引用数据类型只是进行了引用的传递
+  - Object.assign
+  - 展开运算符(...)
 - 深拷贝：对引用数据类型进行拷贝的时候，创建了一个新的对象，并且复制其内的成员变量
 
-```
-let o1 = {a: 1}
-let o2 = o1
+```js
+let o1 = { a: 1 };
+let o2 = o1;
 
-o2.a = 3
-console.log(o1.a) // 3
+o2.a = 3;
+console.log(o1.a); // 3
 ```
 
 ## 怎么实现对象深拷贝
 
 简单方法
 
-```
-let obj2 = JSON.parse(JSON.stringify(obj1))
+```js
+let obj2 = JSON.parse(JSON.stringify(obj1));
 ```
 
 递归方法
 
-```
+```js
 function deepCopy(s) {
-    const d = {}
-    for (let k in s) {
-        if (typeof s[k] == 'object') {
-            d[k] = deepCopy(s[k])
-        } else {
-            d[k] = s[k]
-        }
+  const d = {};
+  for (let k in s) {
+    if (typeof s[k] == "object") {
+      d[k] = deepCopy(s[k]);
+    } else {
+      d[k] = s[k];
     }
-    return d
+  }
+  return d;
 }
 ```
 
@@ -203,61 +293,30 @@ function deepCopy(s) {
 0 == false; // true
 ```
 
+## Array 常用函数
+
+- map: 遍历数组，返回回调返回值组成的新数组
+- forEach: 无法 break，可以用 try/catch 中 throw new Error 来停止
+- filter: 过滤
+- some: 有一项返回 true，则整体为 true
+- every: 有一项返回 false，则整体为 false
+- join: 通过指定连接符生成字符串
+- push / pop: 末尾推入和弹出，改变原数组， 返回推入/弹出项
+- unshift / shift: 头部推入和弹出，改变原数组，返回操作项
+- sort(fn) / reverse: 排序与反转，改变原数组
+- concat: 连接数组，不影响原数组， 浅拷贝
+- slice(start, end): 返回截断后的新数组，不改变原数组
+- splice(start, number, value...): 返回删除元素组成的数组，value 为插入项，改变原数组
+- indexOf / lastIndexOf(value, fromIndex): 查找数组项，返回对应的下标
+- reduce / reduceRight(fn(prev, cur)， defaultPrev): 两两执行，prev 为上次化简函数的 return 值，cur 为当前值(从第二项开始)
+
 ## 箭头函数和普通函数有什么区别
 
-- 函数体内的`this`对象，就是定义时所在的对象，而不是使用时所在的对象，用`call` `apply` `bind`也不能改变`this`指向
+- 箭头函数体内的`this`对象，就是定义时所在的对象，而不是使用时所在的对象，用`call` `apply` `bind`也不能改变`this`指向
 - 不可以当作构造函数，也就是说，不可以使用`new`命令，否则会抛出一个错误。
 - 不可以使用`arguments`对象，该对象在函数体内不存在。如果要用，可以用 `rest` 参数代替。
 - 不可以使用`yield`命令，因此箭头函数不能用作 `Generator` 函数。
 - 箭头函数没有原型对象`prototype`
-
-## 闭包
-
-- 闭包是指可以访问另一个函数作用域中变量的函数
-- 利用闭包可以突破作用链域，将函数内部的变量和方法传递到外部。
-- 闭包的特征：
-  1. 函数内再嵌套函数
-  2. 内部函数可以引用外层的参数和变量
-  3. 参数和变量不会被垃圾回收机制回收
-
-```
-function sayHi(name) {
-    return () => {
-       console.log(`Hi! ${name}`)
-    }
-}
-const test = sayHi('xiaoming')
-test() // Hi! xiaoming
-```
-
-- sayHi 函数执行完毕，但是其活动对象也不会被销毁，因为 test 函数仍然引用着 sayHi 函数中的变量 name
-- 但因为闭包引用着 sayHi 函数的变量，导致另一个函数无法销毁，所以闭包使用过多，会占用较多的内存，这也是一个副作用。
-
-## 自执行函数是什么?
-
-- 声明一个匿名函数, 然后马上调用它
-- 好处：
-  - 截断作用域链，避免闭包造成引用变量无法释放
-  - 创建独立的作用域，防止变量弥散到全局，以免各种 js 库冲突
-
-自执行函数定义
-
-```
-(function () {
-  // body
-})();
-```
-
-module pattern
-
-```
-var module = (function () {
-  // private
-  return {
-    // public
-  };
-}());
-```
 
 ## 如何判断数组与对象
 
@@ -572,8 +631,6 @@ generator.next()  // { value: undefined, done: true }
 
 ## What language constructions do you use for iterating over object properties and array items?
 
-## `Array.forEach()` vs `Array.map()`
-
 ## What's the difference between host objects and native objects?
 
 ## Explain the difference between: `function Person(){}`, `var person = Person()`, and `var person = new Person()`?
@@ -596,8 +653,6 @@ generator.next()  // { value: undefined, done: true }
 
 ## What are the pros and cons of immutability?
 
-## How can you achieve immutability in your own code?
-
 ## What is event loop?
 
 ## What is the difference between call stack and task queue?
@@ -608,13 +663,7 @@ generator.next()  // { value: undefined, done: true }
 
 ## What is the definition of a higher-order function?
 
-## Can you give an example for destructuring an object or an array?
-
 ## Can you give an example of a curry function and why this syntax offers an advantage?
-
-## What are the benefits of using `spread syntax` and how is it different from `rest syntax`?
-
-## How can you share code between files?
 
 ## Why you might want to create static class members?
 
@@ -629,6 +678,7 @@ generator.next()  // { value: undefined, done: true }
 ## 继承
 
 - 最优化: 圣杯模式
+- '''
   var inherit = (function(c,p){
   var F = function(){};
   return function(c,p){
@@ -638,6 +688,7 @@ generator.next()  // { value: undefined, done: true }
   c.prototype.constructor = c;
   }
   })();
+  '''
 
 - ES6 的语法糖 class / extends
 
@@ -656,6 +707,15 @@ generator.next()  // { value: undefined, done: true }
   - 网络异步线程
   - 定时器线程
 
+## 浏览器 Event Loop 的执行顺序
+
+- 事件循环是指: 执行一个宏任务，然后执行清空微任务列表，循环再执行宏任务，再清微任务列表
+- macrotask => 同步代码 => microstask => macrotask
+- 宏任务 macrotask
+  - script / setTimout / IO / UI Rendering
+- 微任务 microtask
+  - promise / ajax
+
 ## Node 的 Event Loop
 
 - timer 阶段: 执行到期的 setTimeout / setInterval 队列回调
@@ -669,15 +729,6 @@ generator.next()  // { value: undefined, done: true }
 - check
   - 执行 setImmediate
 - close callbacks
-
-## 浏览器 Event Loop 的执行顺序
-
-- 同步代码 => microstask(events) => macrotask(events)
-- 微任务 microtask
-  - promise / ajax
-- 宏任务 macrotask
-  - script
-  - setTimout / IO / UI Rendering
 
 ## Web worker
 
@@ -724,43 +775,55 @@ Array.isArray(arr); // es5
 
 ## setTimeout、Promise、Async/Await 的区别？
 
-## setTimeout, Async, Promise 的执行顺序
-
-```
-async function async1() {
-    console.log('async1 start');
-    await async2();
-    console.log('async1 end');
-}
-async function async2() {
-    console.log('async2');
-}
-console.log('script start');
-setTimeout(function() {
-    console.log('setTimeout');
-}, 0)
-async1();
-new Promise(function(resolve) {
-    console.log('promise1');
-    resolve();
-}).then(function() {
-    console.log('promise2');
-});
-console.log('script end');
-```
-
 ## 第 12 题：JS 异步解决方案的发展历程以及优缺点。
 
 ## 第 13 题：Promise 构造函数是同步执行还是异步执行，那么 then 方法呢？
 
-## 如何实现一个 new
-
 ## 简单讲解一下 http2 的多路复用
-
-## 浏览器和 Node 事件循环的区别
 
 ## 全局作用域中，用 const 和 let 声明的变量不在 window 上，那到底在哪里？如何去获取？
 
+在正常作用域里就可以获取
+
 ## cookie 和 token 都存放在 header 中，为什么不会劫持 token？
 
+浏览器每次访问时不会自动携带 token
+
 ## Virtual DOM 真的比操作原生 DOM 快吗？谈谈你的想法
+
+## 同源策略
+
+源 = URI + 主机名+ 端口<br>
+浏览器存在同源策略可防止 JavaScript 发起跨域请求<br>
+目的是防止页面上的恶意脚本访问另一个网页上的敏感数据
+
+## 跨域：规避同源策略
+
+1. jsonp ，允许 script 加载第三方资源
+2. cors 前后端协作设置请求头部
+3. 反向代理
+4. iframe 嵌套通讯，postmessage
+
+## JSONP 使用以及需要注意的安全问题
+
+- JSONP: 利用<script>标签不受跨域限制的特点，缺点是只能支持 get 请求
+
+```js
+function jsonp(url, jsonpCallback, success) {
+  const script = document.createElement("script");
+  script.src = url;
+  script.async = true;
+  script.type = "text/javascript";
+  window[jsonpCallback] = function(data) {
+    success && success(data);
+  };
+  document.body.appendChild(script);
+}
+```
+
+## Generator
+
+- generator is a function that can stop midway and then continue from where it stopped
+- simplify the task of writing iterators.
+- produces a sequence of results instead of a single value
+- a function which returns an object on which you can call next()

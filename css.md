@@ -5,24 +5,15 @@
 - Describe BFC (Block Formatting Context) and how it works.
 - What are the various clearing techniques and which is appropriate for what context?
 - How would you approach fixing browser-specific styling issues?
-- How do you serve your pages for feature-constrained browsers?
-  - What techniques/processes do you use?
-- What are the different ways to visually hide content (and make it available only for screen readers)?
-- Have you ever used a grid system, and if so, what do you prefer?
 - Have you used or implemented media queries or mobile specific layouts/CSS?
 - Are you familiar with styling SVG?
 - Can you give an example of an `@media` property other than `screen`?
-- What are some of the "gotchas" for writing efficient CSS?
-- What are the advantages/disadvantages of using CSS preprocessors?
-  - Describe what you like and dislike about the CSS preprocessors you have used.
-- How would you implement a web design comp that uses non-standard fonts?
 - Explain how a browser determines what elements match a CSS selector.
 - Describe pseudo-elements and discuss what they are used for.
 - What does `* { box-sizing: border-box; }` do? What are its advantages?
 - What is the CSS `display` property and can you give a few examples of its use?
 - What's the difference between the "nth-of-type()" and "nth-child()" selectors?
 - What's the difference between a relative, fixed, absolute and statically positioned element?
-- Can you explain the difference between coding a web site to be responsive versus using a mobile-first strategy?
 - Have you ever worked with retina graphics? If so, when and what techniques did you use?
 - Is there any reason you'd want to use `translate()` instead of _absolute positioning_, or vice-versa? And why?
 
@@ -38,7 +29,55 @@
   - - 宽高指 border + padding + content
 - 正常模式下所有浏览器都是 W3C 盒子模型
 
-# CSS 样式覆盖规则
+## BFC 是什么？
+
+- 一个独立的渲染区域，让处于 BFC 内部的元素与外部的元素相互隔离，使内外元素的定位不会相互影响。
+- 如果一个元素符合成为 BFC 的条件，该元素内部元素的布局和定位就和外部元素互不影响，是一个独立容器
+- 形成 BFC 的条件
+
+  - position: absolute/fixed
+  - float：除 none 以外的值
+  - position：absolute/ fixed
+  - display 为以下其中之一的值 inline-blocks，table-cells，table-captions；
+  - overflow !== visible
+
+- BFC 布局规则
+
+  - 内部的 Box 会在垂直方向，一个接一个地放置。
+  - Box 垂直方向的距离由 margin 决定。属于同一个 BFC 的两个相邻 Box 的 margin 会发生重叠
+  - 每个元素的 margin box 的左边， 与包含块 border box 的左边相接触(对于从左往右的格式化，否则相反)。即使存在浮动也是如此。
+  - BFC 的区域不会与 float box 重叠。
+  - BFC 就是页面上的一个隔离的独立容器，容器里面的子元素不会影响到外面的元素。反之也如此。
+  - 计算 BFC 的高度时，浮动元素也参与计算
+
+- 有什么用
+  - 自适应两栏布局
+  - 可以阻止元素被浮动元素覆盖
+  - 阻止 margin 重叠
+
+## 清除浮动
+
+- 方法 1：使用带 clear 属性的空元素
+  - 在浮动元素后使用一个空元素如<div class="clear"></div>，并在 CSS 中赋予.clear{clear:both;}
+- 方法 2：使用 CSS 的:after 伪元素
+  - 给浮动元素的容器添加一个 clearfix 的 class，然后给这个 class 添加一个:after 伪元素实现元素末尾添加一个看不见的块元素（Block element）清理浮动。
+
+## 层叠上下文
+
+- 元素提升为一个比较特殊的图层，在三维空间中 (z 轴) 高出普通元素一等
+- 触发条件
+  - 根层叠上下文(html)
+  - position
+  - css3 属性
+    - flex
+    - transform
+    - opacity
+    - filter
+    - will-change
+- 层叠等级：层叠上下文在 z 轴上的排序
+  - 在同一层叠上下文中，层叠等级才有意义
+
+## CSS 样式覆盖规则
 
 - 由于继承而发生样式冲突时，最近祖先获胜。
 - 继承的样式和直接指定的样式冲突时，直接指定的样式获胜
@@ -53,11 +92,11 @@
 - 块级元素（block）
   - 占据其父元素（容器）的整个空间
   - 通常浏览器会在块级元素前后另起一个新行
-  - 例子：<div>，<h1>~<h6>，<p>，<ul>
+  - 例子：div，h1，p，ul
 - 行内元素（inline）
   - 一个行内元素只占据它对应标签的边框所包含的空间
   - 包含其自身及其他行内元素
-  - 例子：<span>，<a>，<input>，<button>
+  - 例子：span，a，input，button
 - 行内块元素（inline-block）
   - 和 inline 一样，但可以设宽高
 - 区别
@@ -67,6 +106,15 @@
   - 行内元素只能设置 padding 及左右 margin，上下 margin 无用
   - 设置 padding 时左右推开距离，上下会延申出去，但不会增加上下两行间的距离。
   - 如果给行内元素设定绝对定位，会隐形的改变 a 的 display 为 inline-block，此时就可以把 a 当成块元素一样设置宽高了。
+
+## position 的定位区别：
+
+- absolute 生成绝对定位的元素，相对于 static 定位以外的第一个祖先元素进行定位。
+- fixed 生成绝对定位的元素，相对于浏览器窗口进行定位（老 IE 不支持）。
+- relative 生成相对定位的元素，相对于其在普通流中的位置进行定位。
+- static 默认值。没有定位，元素出现在正常的流中（忽略 top, bottom,
+- left, right z-index 声明）。
+- inherit 规定从父元素继承 position 属性的值。
 
 ## 垂直水平剧中方案
 
@@ -129,3 +177,28 @@
 - link 功能较多，可以定义 RSS，定义 Rel 等作用，而@import 只能用于加载 css
 - 当解析到 link 时，页面会同步加载所引的 css，而@import 所引用的 css 会等到页面加载完才被加载
 - link 可以使用 js 动态引入，@import 不行
+
+# web design best practices
+
+- text font-size: 15px - 25px
+- line spacing: 120% - 150%
+- characters per line: 45 - 90
+- font： sans , serif, lato
+  color:
+- use only one base color
+- text over image
+- white text over dark background
+- overlay image with dark layer
+- floor fade
+- icon: use icon font whenever possible
+
+## 用 css 画一个三角形
+
+```css
+.caret {
+  width: 0;
+  height: 0;
+  border: 50px solid transparent;
+  border-top-color: black;
+}
+```
