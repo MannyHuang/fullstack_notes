@@ -2,7 +2,7 @@
 
 ## React 核心流程
 
-- reconciliation (调度算法，也可称为 render):
+- reconciliation: compute which part has changed
 
   - 更新 state 与 props；
   - 调用生命周期钩子；
@@ -11,7 +11,7 @@
   - 通过新旧 vdom 进行 diff 算法，获取 vdom change；
   - 确定是否需要重新渲染
 
-- commit:
+- rendering: 渲染画面
   - 如需要，则操作 dom 节点更新
 
 ## Virtual DOM 原理
@@ -20,23 +20,150 @@
 - 根据数据的变化生成新的 virtual dom
 - 将两个 virtual dom 进行 diff，根据变化的部分修改真正的 dom
 
+## 当组件的 setState 函数被调用之后，发生了什么？
+
+- 把传递给 setState 的参数对象合并到组件原先的 state
+- React 会构建一个 React 元素树，它会找出这棵新树和旧树的不同之处
+- React 能够相对精确地找出哪些位置发生了改变以及如何发生了什么变化
+- 并且知道如何只通过必要的更新来最小化重渲染。
+
 ## React 生命周期
 
-- 初始化过程
+```js
+class Component extends React.Component {
+  // 替换 `componentWillReceiveProps` ，
+  // 初始化和 update 时被调用
+  // 静态函数，无法使用 this
+  static getDerivedStateFromProps(nextProps, prevState) {
+    if (nextProps.data !== prevState.data) {
+      return { data: nextProps.data };
+    } else {
+      return null1;
+    }
+  }
 
-  - componentWillMount
-  - componentDidMount 《= 发出数据请求
+  // 判断是否需要更新组件
+  // 可以用于组件性能优化
+  shouldComponentUpdate(nextProps, nextState) {}
 
-- 更新过程
+  // 组件被挂载后触发
+  // 用处：ajax
+  componentDidMount() {}
 
-  - componentWillUpdate
-  - render
-  - componentDidUpdate
-  - shouldComponentUpdate 《= 通过条件判断返回布尔值确定是否更新视图
-  - componentWillReceiveProps
+  // 替换 componentWillUpdate
+  // 可以在更新之前获取最新 dom 数据
+  getSnapshotBeforeUpdate() {}
 
-- 卸载过程
-  - componentWillUnmount
+  // 组件更新后调用
+  componentDidUpdate() {
+    //
+    // 当 id 发生变化时，重新获取数据
+    if (this.props.id !== prevProps.id) {
+      this.fetchData(this.props.id);
+    }
+  }
+
+  // 组件即将销毁
+  componentWillUnmount() {}
+
+  // 组件已销毁
+  componentDidUnMount() {}
+}
+```
+
+## React 中 key 的作用
+
+- key 作为元素的唯一标识用来表示元素的唯一性
+- 帮助跟踪 virtualDOM 中哪些元素被改变/添加/移除
+- 进行 diff 算法比较时，通过 key 避免不必要的渲染，实现高效的视图更新机制。
+
+## react 中 refs 的作用
+
+- 访问 DOM 元素实例的句柄 (本质是一个函数）)
+
+## 受控组件(Controlled Component)与非受控组件(Uncontrolled Component)的区别
+
+- 受控组件由 react 侦测改变和管理 value
+- 非受控组件由 dom 自己管理 value
+
+## 什么时候用 Class component，什么时候用 Functional component？
+
+- Class component：用到了 state，生命周期函数
+- Functional component：其它情况
+
+## 并不是父子关系的组件，如何实现相互的数据通信？
+
+- redux
+
+## React 中 setState 什么时候是同步的，什么时候是异步的？
+
+- 在 合成事件 和 生命周期钩子(除 componentDidUpdate) 中，setState 是"异步"的；
+- 在 原生事件 和 setTimeout 中，setState 是同步的，可以马上获取更新后的值；
+
+## 什么是 HoC（Higher-Order Component）？
+
+- 高阶组件不是组件，是 增强函数，可以输入一个元组件，返回出一个新的增强组件；
+- 高阶组件的主要作用是 代码复用，操作 状态和参数；
+
+- 属性代理 (Props Proxy): 给元组件添加 props
+
+```js
+function withOnChange(Comp) {
+  return class extends React.Component {
+    constructor(props) {
+      super(props);
+      this.state = {
+        name: ""
+      };
+    }
+    onChangeName = () => {
+      this.setState({
+        name: "dongdong"
+      });
+    };
+    render() {
+      const newProps = {
+        value: this.state.name,
+        onChange: this.onChangeName
+      };
+      return <Comp {...this.props} {...newProps} />;
+    }
+  };
+}
+```
+
+```js
+const NameInput = props => <input name="name" {...props} />;
+export default withOnChange(NameInput);
+```
+
+- 渲染劫持: 通过抽象逻辑，统一对页面进行权限判断，按不同的条件进行页面渲染
+
+```js
+function withAdminAuth(WrappedComponent) {
+  return class extends React.Component {
+    constructor(props) {
+      super(props);
+      this.state = {
+        isAdmin: false
+      };
+    }
+    async componentWillMount() {
+      const currentRole = await getCurrentUserRole();
+      this.setState({
+        isAdmin: currentRole === "Admin"
+      });
+    }
+    render() {
+      if (this.state.isAdmin) {
+        return <Comp {...this.props} />;
+      } else {
+        return <div>您没有权限查看该页面，请联系管理员！</div>;
+      }
+    }
+  };
+}
+```
 
 ## Redux 使用流程
 
@@ -44,6 +171,8 @@
 
   - redux 是 react 应用的状态管理机制
   - 为了解决多页面多组件之间的数据通信
+  - 单一数据源: 所有 state 最终维护在一个根级 Store
+  - 状态只读: 数据无法被直接修改
   - 主要有 Store、Action、Reducer 三部分组成
     - component 发起 action 操作修改 store 中 的 state
     - reducers 根据 action 和当前的 state 获得新的 state
@@ -71,42 +200,4 @@
 - verbose
 - code locality
 
-## React 中 key 的作用
-
-- key 作为元素的唯一标识用来表示元素的唯一性，在进行 diff 算法比较时，通过 key 避免不必要的渲染，实现高效的视图更新机制。
-
-## react 中 refs 的作用
-
-- 访问 DOM 元素实例的句柄 (本质是一个函数）)
-
-## 什么是 HoC（Higher-Order Component）？
-
-- 高阶组件就是一个 React 组件包裹着另外一个 React 组件
-
-## 为什么循环产生的组件中要利用上 key 这个特殊的 prop？
-
-- Keys 负责帮助 React 跟踪 virtualDOM 中哪些元素被改变/添加/移除
-
-## 什么时候用 Class component，什么时候用 Functional component？
-
-- Class component：用到了 state，生命周期函数
-- Functional component：其它情况
-
-## 并不是父子关系的组件，如何实现相互的数据通信？
-
-- 使用父组件，通过 props 将变量传入子组件
-
-## 当组件的 setState 函数被调用之后，发生了什么？
-
-- 把传递给 setState 的参数对象合并到组件原先的 state
-- React 会构建一个 React 元素树，它会找出这棵新树和旧树的不同之处
-- React 能够相对精确地找出哪些位置发生了改变以及如何发生了什么变化
-
-并且知道如何只通过必要的更新来最小化重渲染。
-
-## 受控组件(Controlled Component)与非受控组件(Uncontrolled Component)的区别
-
-- 受控组件由 react 侦测改变和管理 value
-- 非受控组件由 dom 自己管理 value
-
-## React 中 setState 什么时候是同步的，什么时候是异步的？
+## react hooks

@@ -264,16 +264,16 @@ let obj2 = JSON.parse(JSON.stringify(obj1));
 递归方法
 
 ```js
-function deepCopy(s) {
-  const d = {};
-  for (let k in s) {
-    if (typeof s[k] == "object") {
-      d[k] = deepCopy(s[k]);
+function deepCopy(obj) {
+  const result = {};
+  for (const key in obj) {
+    if (typeof obj[key] == "object") {
+      result[key] = deepCopy(obj[key]);
     } else {
-      d[k] = s[k];
+      result[key] = obj[key];
     }
   }
-  return d;
+  return result;
 }
 ```
 
@@ -453,7 +453,12 @@ define(['./a', './b'], function(a, b) { // 依赖必须一开始就写好
 
 ## Javascript 如何实现继承？
 
-1、构造继承
+1、构造继承：用构造函数实现继承
+```js
+
+
+```
+
 2、原型继承
 3、实例继承
 4、拷贝继承
@@ -758,12 +763,15 @@ console.log('Received message ' + event.data);
 - 闭包: 会导致父级中的变量无法被释放
 - dom 元素被删除时，内存中的引用未被正确清空
 
-## 判断数组类型的 3 个方法
+## 判断是否是数组 Array 类型的方法
 
+```js
 var arr = [];
+arr.constructor === Array;
 arr instanceof Array; // true
-Object.prototype.toString.call(arr) === '[object Array]' // toString
+Object.prototype.toString.call(arr) === "[object Array]"; // toString
 Array.isArray(arr); // es5
+```
 
 ## 介绍下 Set、Map、WeakSet 和 WeakMap 的区别？
 
@@ -806,7 +814,23 @@ Array.isArray(arr); // es5
 
 ## JSONP 使用以及需要注意的安全问题
 
-- JSONP: 利用<script>标签不受跨域限制的特点，缺点是只能支持 get 请求
+- JSONP: 利用<script>标签不受跨域限制的特点
+- 功能限制：只能支持 get 请求
+- 安全问题：xss
+  ```html
+  http://127.0.0.1/getUsers.php?callback=<script>
+    alert(/xss/);
+  </script>
+  ```
+- 安全问题：csrf
+  ```js
+  <script>
+  function wooyun(v){
+      alert(v.username);
+  }
+  </script>
+  <script src="http://js.login.360.cn/?o=sso&m=info&func=wooyun"></script>
+  ```
 
 ```js
 function jsonp(url, jsonpCallback, success) {
