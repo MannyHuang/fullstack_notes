@@ -62,6 +62,14 @@
 - 方法 2：使用 CSS 的:after 伪元素
   - 给浮动元素的容器添加一个 clearfix 的 class，然后给这个 class 添加一个:after 伪元素实现元素末尾添加一个看不见的块元素（Block element）清理浮动。
 
+```css
+.row:after {
+  content: "";
+  display: box;
+  clear: both;
+}
+```
+
 ## 层叠上下文
 
 - 元素提升为一个比较特殊的图层，在三维空间中 (z 轴) 高出普通元素一等
@@ -202,3 +210,104 @@
   border-top-color: black;
 }
 ```
+
+# 响应式设计
+
+- Viewport meta tag
+
+```html
+<meta
+  name="viewport"
+  content="width=device-width,height=device-height,inital-scale=1.0,maximum-scale=1.0,user-scalable=no;"
+/>
+```
+
+- 栅格系统
+
+```css
+ 8 *{
+ 9     box-sizing:border-box;
+10 }
+15 /* 所有列左浮动 */
+16 [class*="col-"]{
+17     float:left;
+18     padding:15px;
+19     border:1px solid red;
+20 }
+21 /* 清除浮动 */
+22 .row:after{
+23     content:"";
+24     display:block;
+25     clear:both;
+26 }
+27 /* 每列的百分比： */
+28 .col-1{width:8.33%;}
+29 .col-2{width:16.66%;}
+30 .col-3{width:25%;}
+31 .col-4{width:33.33%;}
+32 .col-5{width:41.66%;}
+33 .col-6{width:50%;}
+34 .col-7{width:58.33%;}
+35 .col-8{width:66.66%;}
+36 .col-9{width:75%;}
+37 .col-10{width:83.33%;}
+38 .col-11{width:91.66%;}
+39 .col-12{width:100%;}
+```
+
+- media query
+
+```css
+/* 移动端优先: */
+[class*="col-"] {
+  width: 100%;
+}
+@media only screen and (min-width: 768px) {
+  /* 桌面： */
+  .col-1 {
+    width: 8.33%;
+  }
+  .col-2 {
+    width: 16.66%;
+  }
+  .col-3 {
+    width: 25%;
+  }
+  .col-4 {
+    width: 33.33%;
+  }
+  .col-5 {
+    width: 41.66%;
+  }
+  .col-6 {
+    width: 50%;
+  }
+  .col-7 {
+    width: 58.33%;
+  }
+  .col-8 {
+    width: 66.66%;
+  }
+  .col-9 {
+    width: 75%;
+  }
+  .col-10 {
+    width: 83.33%;
+  }
+  .col-11 {
+    width: 91.66%;
+  }
+  .col-12 {
+    width: 100%;
+  }
+}
+```
+
+- 图片
+
+  - 如果 width 属性设置为 100%，图片会根据上下范围实现响应式功能
+  - max-width 属性设置为 100%，图片永远不会大于其原始大小
+
+- 框架：Bootstrap
+  - 必须理解容器（container）、行（row）和列（column）之间的层级关系。
+  - container 是网格的容器，row（.row）必须位于 container 的内部，column（如 .col-sm-4）必须位于 row 的内部

@@ -30,45 +30,21 @@
 ## React 生命周期
 
 ```js
-class Component extends React.Component {
-  // 替换 `componentWillReceiveProps` ，
-  // 初始化和 update 时被调用
-  // 静态函数，无法使用 this
-  static getDerivedStateFromProps(nextProps, prevState) {
-    if (nextProps.data !== prevState.data) {
-      return { data: nextProps.data };
-    } else {
-      return null1;
-    }
-  }
+// mounting
+constructor()
+static getDerivedStateFromProps()
+render()
+componentDidMount()
 
-  // 判断是否需要更新组件
-  // 可以用于组件性能优化
-  shouldComponentUpdate(nextProps, nextState) {}
+// updating
+static getDerivedStateFromProps()
+shouldComponentUpdate()
+render()
+getSnapshotBeforeUpdate()
+componentDidUpdate()
 
-  // 组件被挂载后触发
-  // 用处：ajax
-  componentDidMount() {}
-
-  // 替换 componentWillUpdate
-  // 可以在更新之前获取最新 dom 数据
-  getSnapshotBeforeUpdate() {}
-
-  // 组件更新后调用
-  componentDidUpdate() {
-    //
-    // 当 id 发生变化时，重新获取数据
-    if (this.props.id !== prevProps.id) {
-      this.fetchData(this.props.id);
-    }
-  }
-
-  // 组件即将销毁
-  componentWillUnmount() {}
-
-  // 组件已销毁
-  componentDidUnMount() {}
-}
+// unmount
+componentWillUnmount()
 ```
 
 ## React 中 key 的作用
@@ -201,3 +177,29 @@ function withAdminAuth(WrappedComponent) {
 - code locality
 
 ## react hooks
+
+
+
+## vallina react (VVM)
+View-Model (VM): Component-related code that manages simple state, passes data directly onto View, potentially passes data directly back from View
+
+View (V): How the visuals look (JSX, CSS)
+
+## react + redux
+"MVVM"/"MVC"
+
+## react hook
+- Only call Hooks at the top level. 
+  - Don’t call Hooks inside loops, conditions, or nested functions
+- Only call Hooks from React function components
+state hook
+effect hook
+  - runs the effects after every render
+  - have access to its props and state
+  -  If returns a function, React will run it when  clean up:
+  - replace: 
+    - componentDidMount, componentDidUpdate, and componentWillUnmount
+
+## side effects
+data fetching
+manually changing DOM
