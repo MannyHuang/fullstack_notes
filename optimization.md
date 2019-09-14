@@ -1,10 +1,30 @@
 # Optimization
 
+## 整体优化策略
+FE
+  critical render path
+  optimized code
+  progressive web app
+NET
+  minimize files
+    code: minify + uglify
+    image: use image compressor (ex. PngQuant, jpegoptim)
+      pngquant --quality 60-75 --ext .png  **/*.png --force
+      jpegoptim  -m 75 **/*.jpg
+      use cdn
+  minimize deliverty
+BE
+  CDN
+  caching
+  load balancing
+  db scaling
+  gzip
+
+
 ## 前端性能优化
 * 减少 HTTP 请求次数
   * 在客户端重复利用数据
 * 对源码和传输进行压缩
-  * CSS/JS minify
   * 开启 Gzip 压缩
   * 压缩图片
 * 使用 CDN 加速
