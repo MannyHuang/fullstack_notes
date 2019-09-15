@@ -1,21 +1,111 @@
-- What is CSS selector specificity and how does it work?
 - What's the difference between "resetting" and "normalizing" CSS? Which would you choose, and why?
 - Describe Floats and how they work.
 - Describe z-index and how stacking context is formed.
 - Describe BFC (Block Formatting Context) and how it works.
 - What are the various clearing techniques and which is appropriate for what context?
 - How would you approach fixing browser-specific styling issues?
-- Have you used or implemented media queries or mobile specific layouts/CSS?
 - Are you familiar with styling SVG?
 - Can you give an example of an `@media` property other than `screen`?
 - Explain how a browser determines what elements match a CSS selector.
-- Describe pseudo-elements and discuss what they are used for.
-- What does `* { box-sizing: border-box; }` do? What are its advantages?
-- What is the CSS `display` property and can you give a few examples of its use?
 - What's the difference between the "nth-of-type()" and "nth-child()" selectors?
 - What's the difference between a relative, fixed, absolute and statically positioned element?
 - Have you ever worked with retina graphics? If so, when and what techniques did you use?
 - Is there any reason you'd want to use `translate()` instead of _absolute positioning_, or vice-versa? And why?
+
+## CSS 设计方法
+
+- Use Low-Specificity Selectors
+
+```css
+/* bad */
+.navigation a {
+  color: blue;
+}
+
+/* good */
+.nav-link {
+  color: blue;
+  font-size: 2rem;
+}
+
+.nav-link-red {
+  color: red;
+}
+```
+
+- Don't Use ID or Element Selectors
+- Don't Use Inline Styles
+- Don't Use !important
+- Don't Depend on a Certain Markup Structure
+
+```css
+/* bad */
+.header ul li a {
+  margin-right: 20px;
+}
+
+/* good */
+.header-link {
+  margin-right: 20px;
+}
+```
+
+- Prefix Modifier Classes
+
+```css
+/* bad */
+.btn {
+  padding: 0.25em;
+  background-color: blue;
+  color: white;
+}
+
+.btn.red {
+  background-color: red;
+}
+
+/* good */
+.btn {
+  padding: 0.25em;
+  background-color: blue;
+  color: white;
+}
+
+.btn-red {
+  background-color: red;
+}
+```
+
+- Write Small Rules
+
+```css
+.text-white {
+  color: #fff;
+}
+
+.text-underline {
+  text-decoration: underline;
+}
+```
+
+## CSS 样式覆盖规则
+
+- Importance > specific > source order
+- 继承的样式和直接指定的样式冲突时，直接指定的样式获胜
+- 直接指定的样式发生冲突时，样式权值高者获胜
+  - 选择器优先级： !important > inline > #id > .class > tag > \* > 继承 > 默认
+  - 选择器 从右往左 解析
+- 样式权值相同时，后者获胜。
+
+## 如何计算相对单位的实际像素
+
+- %(font): relative to parents' font-size
+- %(length): relative to parents' width
+- em(font): relative to parents' font-size
+- em(length): relative to current font-size
+- rem: relative to root font-size
+- vh: 1% of viewport height
+- vw: 1% of viewport width
 
 ## 盒模型
 
@@ -26,7 +116,7 @@
   - content-box (W3C 标准盒模型)
     - 宽高指 content
   - border-box (IE 盒模型)
-  - - 宽高指 border + padding + content
+    - 宽高指 border + padding + content
 - 正常模式下所有浏览器都是 W3C 盒子模型
 
 ## BFC 是什么？
@@ -57,8 +147,15 @@
 
 ## 清除浮动
 
-- 方法 1：使用带 clear 属性的空元素
-  - 在浮动元素后使用一个空元素如<div class="clear"></div>，并在 CSS 中赋予.clear{clear:both;}
+- 方法 1：使用带 clearfix 的空元素
+  - 在浮动元素后使用一个空元素如<div class="clearfix"></div>，并在 CSS 中赋予{clear:both;}
+
+```css
+.clearfix {
+  clear: both;
+}
+```
+
 - 方法 2：使用 CSS 的:after 伪元素
   - 给浮动元素的容器添加一个 clearfix 的 class，然后给这个 class 添加一个:after 伪元素实现元素末尾添加一个看不见的块元素（Block element）清理浮动。
 
@@ -84,16 +181,6 @@
     - will-change
 - 层叠等级：层叠上下文在 z 轴上的排序
   - 在同一层叠上下文中，层叠等级才有意义
-
-## CSS 样式覆盖规则
-
-- 由于继承而发生样式冲突时，最近祖先获胜。
-- 继承的样式和直接指定的样式冲突时，直接指定的样式获胜
-- 直接指定的样式发生冲突时，样式权值高者获胜
-  - 选择器优先级： !important > 行内样式 > #id > .class > tag > \* > 继承 > 默认
-  - 选择器 从右往左 解析
-- 样式权值相同时，后者获胜。
-- !important 的样式属性不被覆盖
 
 ## 块级元素 vs 行内元素
 
@@ -213,7 +300,13 @@
 
 # 响应式设计
 
-- Viewport meta tag
+- fluid grid: layout sized in relative units
+  - examples:
+    - https://github.com/grahammiller/ResponsiveGridSystem
+- images: sized ized in relative units
+- media queries: different css rules based on width
+
+* Viewport meta tag
 
 ```html
 <meta
