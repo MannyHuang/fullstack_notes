@@ -3,34 +3,29 @@
 ## 整体优化策略
 FE
   critical render path
+    将 CSS 放到顶部，JavaScript 放到尾部
   optimized code
   progressive web app
 NET
   minimize files
     code: minify + uglify
     image: use image compressor (ex. PngQuant, jpegoptim)
-      pngquant --quality 60-75 --ext .png  **/*.png --force
-      jpegoptim  -m 75 **/*.jpg
-      use cdn
+      png: pngquant --quality 60-75 --ext .png  **/*.png --force
+      jpeg: jpegoptim  -m 75 **/*.jpg
+      使用 CDN 加速
   minimize deliverty
 BE
   CDN
   caching
   load balancing
   db scaling
-  gzip
+  开启 Gzip 压缩
 
 
 ## 前端性能优化
 * 减少 HTTP 请求次数
   * 在客户端重复利用数据
-* 对源码和传输进行压缩
-  * 开启 Gzip 压缩
-  * 压缩图片
-* 使用 CDN 加速
 * 合理控制 cookie 大小（每次请求都会包含 cookie）
-* HTML优化
-  * 将 CSS 放到顶部，JavaScript 放到尾部
 * DOM优化
   * 用innerHTML代替DOM操作
   * 减少 DOM 操作次数
