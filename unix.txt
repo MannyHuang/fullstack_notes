@@ -1,0 +1,134 @@
+#*************************************************************************
+#Programming Language (Unix)
+#*************************************************************************
+
+#Fundamental Commands
+1.Remove file:
+	1.rm -f to force remove a file
+	2.rm -rf to force remove the whole directory
+	3.rm -rf * to delete the whole system (in administrator mode)
+
+2.Copy and paste text:
+	1.highlight the text
+	2.shift + Insert
+	
+3.List files:
+	1.ls (simple table format)
+	2.ls -lrt (longlist format with modification time sorted)
+	3.ls -a (show hidden files, files start with .
+	
+4.Viewing compressed files:
+	1.vim filename (Editor)
+	2.zless filename (stream to output)
+	3.Decompress: 
+		1.tar -xvzf filename.tar.gz (tar.gz or tgz)
+		2.tar -xvjf filename.tar.bz2 (bzip2)
+		3.zcat filename.tar.Z | tar xf - (Z or Huffman coding)
+	4.Compress:
+		1.tar -cvzf filename.tar.gz filename/ (tar.gz)
+	
+	
+5.Searching Keywords:
+	1.grep (when special character are part of the keyword)
+		1.grep keyword file_name 
+		2.grep -i "keyword" file_name (case insensitive)
+		
+	2.egrep (when want to use metachracters, such as +, ? , |
+		1.egrep "keyword_1|keyword_2" filename
+	
+6.Searching Files:
+	1.find -name file_name (search the system for file_name and return the path)
+
+7.Show Current Paths: 
+	1.pwd
+	
+8.show file size:
+	1.du -sh file_name
+
+9.show disk usages:
+	1.df -h full_path
+	
+10.create empty file or directory:
+	1.touch filename
+	2.mkdir -p (create all required path)
+
+11.setting alias:	
+	1.alias command 'regular command'
+	2.modify .cshrc to enable alias when open the shell
+	
+12.show history of commands:
+	1.history
+	
+13.show current shell
+	1.ps -p $$
+
+14.discard standard error
+	1.find / -name core 2> /dev/null (stdin = 0, stdout = 1, stderr = 2)
+
+15.issue two commands in sequence
+	1.lpr /tmp/t2 && rm /tmp/t2
+	
+16.issue the second command only if the first failed
+	1.cp --preserve --recursive /etc/* /spare/backup \
+		|| echo "Did NOT make backup"
+	
+17.show current os info 
+	1.uname -a
+
+18.send email
+	1.text: diff file1 file2 | mailx cheng
+	2.file: uuencode file1 file1 | mailx cheng
+
+19.Sort text file 
+	1.sort -n -k 4 (numercial sort on column 4)
+	
+20.extract from string and parse
+	1. echo "Ze Cheng" | awk '{print $1}' | xargs $1
+
+21.remote file copying
+	1.Method1:
+		1.ftp <hostname>
+		2.ftp> get <absolute host path> <destination path>
+	2.Method2:
+		1.scp 'svvgar-nx21:/proj/ipcad-tier2-test2/cheng/main/pd/tiles/svdc_backup/*.tar.gz' .
+22.check digital footprint
+	1.md5sum file
+
+23.perforce operations
+	1.p4 filelog -l file_name
+	2.cd $FLOW_DIR/supra 
+	3.p4 add -t kxtext scripts/route/spefcmp.pl scripts/route/plot_correlation.pl (add text with executable property)
+	4.p4 edit actions/route/IcAutoRoutePattern.csh
+	5.p4 edit templates/icc_shell/IcAutoRoutePattern.cmd
+	6.p4 diff
+	7.p4 diff | less
+	8.p4 resolve
+	9.p4 submit
+	10.p4 submit -c 359485
+   
+24.date formatting
+	1.date +'%d/%m/%y'
+	
+25.check current hostname
+	1.hostname
+		
+26.check search path
+	1.echo $PATH
+
+27.create your own commands
+	1.cd /usr/local/bin
+	2.create the shell script and add execution permission
+		
+		page 71
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+	
+

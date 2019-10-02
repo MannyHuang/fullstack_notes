@@ -1,0 +1,395 @@
+=============================================================
+Python
+=============================================================
+
+
+###########################################################################################
+#SETUP
+###########################################################################################
+1.specify interpreter: 
+	1.#!/usr/bin/env python
+	
+###########################################################################################
+#FLOW CONTROL : IFELSE
+###########################################################################################
+number = float(input("Tell me a number: "))
+if number % 2 == 0:
+    print(int(number), "is even.")
+elif number % 2 == 1:
+    print(int(number), "is odd.")
+else:
+    print(number, "is very strange.")
+
+	
+###########################################################################################
+#FLOW CONTROL : WHILE
+###########################################################################################
+count = 0
+sum = 0.0
+number = 1 # set to something that will not exit the while loop immediately.
+ 
+print("Enter 0 to exit the loop")
+while number != 0:
+    number = float(input("Enter a number: "))
+    if number != 0:
+        count = count + 1
+        sum = sum + number
+    if number == 0:
+        print("The average was:", sum / count
+
+###########################################################################################
+#SUBROUTINES
+###########################################################################################
+#! /usr/bin/python
+#-*-coding: utf-8 -*-
+# converts temperature to Fahrenheit or Celsius
+ 
+def print_options():
+    print("Options:")
+    print(" 'p' print options")
+    print(" 'c' convert from Celsius")
+    print(" 'f' convert from Fahrenheit")
+    print(" 'q' quit the program")
+ 
+def celsius_to_fahrenheit(c_temp):
+    return 9.0 / 5.0 * c_temp + 32
+ 
+def fahrenheit_to_celsius(f_temp):
+    return (f_temp - 32.0) * 5.0 / 9.0
+ 
+choice = "p"
+while choice != "q":
+    if choice == "c":
+        c_temp = float(input("Celsius temperature: "))
+        print("Fahrenheit:", celsius_to_fahrenheit(c_temp))
+        choice = input("option: ")
+    elif choice == "f":
+        f_temp = float(input("Fahrenheit temperature: "))
+        print("Celsius:", fahrenheit_to_celsius(f_temp))
+        choice = input("option: ")
+    elif choice == "p": #Alternatively choice != "q": so that print when anything unexpected inputed
+        print_options()
+        choice = input("option: ")
+
+###########################################################################################
+#DATA STRUCTURE: LIST
+###########################################################################################
+demolist  = ["l", "o", "v", "e"]
+
+demolist[2] accesses the element at index 2 
+demolist[2] = 3 sets the element at index 2 to be 3 
+del demolist[2] removes the element at index 2 
+len(demolist) returns the length of demolist 
+"value" in demolist is True if "value" is an element in demolist 
+"value" not in demolist is True if "value" is not an element in demolist 
+another_list.sort() sorts another_list. Note that the list must be all numbers or all strings to be sorted. 
+demolist.index("value") returns the index of the first place that "value" occurs 
+demolist.append("value") adds an element "value" at the end of the list 
+demolist.remove("value") removes the first occurrence of value from demolist (same as del demolist[demolist.index("value")]) 
+
+#example #1
+
+menu_item = 0
+namelist = []
+while menu_item != 9:
+    print("--------------------")
+    print("1. Print the list")
+    print("2. Add a name to the list")
+    print("3. Remove a name from the list")
+    print("4. Change an item in the list")
+    print("9. Quit")
+    menu_item = int(input("Pick an item from the menu: "))
+    if menu_item == 1:
+        current = 0
+        if len(namelist) > 0:
+            while current < len(namelist):
+                print(current, ".", namelist[current])
+                current = current + 1
+        else:
+            print("List is empty")
+    elif menu_item == 2:
+        name = input("Type in a name to add: ")
+        namelist.append(name)
+    elif menu_item == 3:
+        del_name = input("What name would you like to remove: ")
+        if del_name in namelist:
+            # namelist.remove(del_name) would work just as fine
+            item_number = namelist.index(del_name)
+            del namelist[item_number]
+            # The code above only removes the first occurrence of
+            # the name.  The code below from Gerald removes all.
+            # while del_name in namelist:
+            #       item_number = namelist.index(del_name)
+            #       del namelist[item_number]
+        else:
+            print(del_name, "was not found")
+    elif menu_item == 4:
+        old_name = input("What name would you like to change: ")
+        if old_name in namelist:
+            item_number = namelist.index(old_name)
+            new_name = input("What is the new name: ")
+            namelist[item_number] = new_name
+        else:
+            print(old_name, "was not found")
+ 
+print("Goodbye")
+
+#example #2
+
+## This program runs a test of knowledge
+ 
+# First get the test questions
+# Later this will be modified to use file io.
+def get_questions():
+    # notice how the data is stored as a list of lists
+    return [["What color is the daytime sky on a clear day? ", "blue"],
+            ["What is the answer to life, the universe and everything? ", "42"],
+            ["What is a three letter word for mouse trap? ", "cat"]]
+ 
+# This will test a single question
+# it takes a single question in
+# it returns True if the user typed the correct answer, otherwise False
+ 
+def check_question(question_and_answer):
+    # extract the question and the answer from the list
+    # This function takes a list with two elements, a question and an answer.  
+    question = question_and_answer[0]   
+    answer = question_and_answer[1]
+    # give the question to the user
+    given_answer = input(question)
+    # compare the user's answer to the tester's answer
+    if answer == given_answer:
+        print("Correct")
+        return True
+    else:
+        print("Incorrect, correct was:", answer)
+        return False
+ 
+# This will run through all the questions
+def run_test(questions):
+    if len(questions) == 0:
+        print("No questions were given.")
+        # the return exits the function
+        return
+    index = 0
+    right = 0
+    while index < len(questions):
+        # Check the question
+        #Note that this is extracting a question and answer list from the list of lists.
+        if check_question(questions[index]): 
+            right = right + 1
+        # go to the next question
+        index = index + 1
+    # notice the order of the computation, first multiply, then divide
+    print("You got", right * 100 / len(questions),\
+           "% right out of", len(questions))
+ 
+# now let's get the questions from the get_questions function, and
+# send the returned list of lists as an argument to the run_test function.
+ 
+run_test(get_questions())
+
+
+###########################################################################################
+#DATA STRUCTURE: Dictionaries
+###########################################################################################
+
+max_points = [25, 25, 50, 25, 100]
+assignments = ['hw ch 1', 'hw ch 2', 'quiz   ', 'hw ch 3', 'test']
+students = {'#Max': max_points}
+ 
+def print_menu():
+    print("1. Add student")
+    print("2. Remove student")
+    print("3. Print grades")
+    print("4. Record grade")
+    print("5. Print Menu")
+    print("6. Exit")
+ 
+def print_all_grades():
+    print('\t', end=' ')
+    for i in range(len(assignments)):
+        print(assignments[i], '\t', end=' ')
+    print()
+    keys = list(students.keys())
+    keys.sort()
+    for x in keys:
+        print(x, '\t', end=' ')
+        grades = students[x]
+        print_grades(grades)
+ 
+def print_grades(grades):
+    for i in range(len(grades)):
+        print(grades[i], '\t', end=' ')
+    print()
+ 
+print_menu()
+menu_choice = 0
+while menu_choice != 6:
+    print()
+    menu_choice = int(input("Menu Choice (1-6): "))
+    if menu_choice == 1:
+        name = input("Student to add: ")
+        students[name] = [0] * len(max_points)
+    elif menu_choice == 2:
+        name = input("Student to remove: ")
+        if name in students:
+            del students[name]
+        else:
+            print("Student:", name, "not found")
+    elif menu_choice == 3:
+        print_all_grades()
+    elif menu_choice == 4:
+        print("Record Grade")
+        name = input("Student: ")
+        if name in students:
+            grades = students[name]
+            print("Type in the number of the grade to record")
+            print("Type a 0 (zero) to exit")
+            for i in range(len(assignments)):
+                print(i + 1, assignments[i], '\t', end=' ')
+            print()
+            print_grades(grades)
+            which = 1234
+            while which != -1:
+                which = int(input("Change which Grade: "))
+                which -= 1    #same as which = which - 1
+                if 0 <= which < len(grades):
+                    grade = int(input("Grade: "))
+                    grades[which] = grade
+                elif which != -1:
+                    print("Invalid Grade Number")
+        else:
+            print("Student not found")
+    elif menu_choice != 6:
+        print_menu()
+
+###########################################################################################
+#DATA STRUCTURE: MODULES
+###########################################################################################
+1.Import Module
+	import calendar
+	year = int(input("Type in the year number: "))
+	calendar.prcal(year)
+
+2.Import function:
+	from time import time, ctime
+	 
+	prev_time = ""
+	while True:
+		the_time = ctime(time())
+		if prev_time != the_time:
+			print("The time is:", ctime(time()))
+			prev_time = the_time
+
+###########################################################################################
+#File I/O
+###########################################################################################
+
+# Write a file
+with open("test.txt", "wt") as out_file:
+    out_file.write("This Text is going to out file\nLook at it and see!")
+ 
+# Read a file
+with open("test.txt", "rt") as in_file:
+    text = in_file.read()
+ 
+print(text)
+
+
+def print_numbers(numbers):
+    print("Telephone Numbers:")
+    for k, v in numbers.items():
+        print("Name:", k, "\tNumber:", v)
+    print()
+ 
+def add_number(numbers, name, number):
+    numbers[name] = number
+ 
+def lookup_number(numbers, name):
+    if name in numbers:
+        return "The number is " + numbers[name]
+    else:
+        return name + " was not found"
+ 
+def remove_number(numbers, name):
+    if name in numbers:
+        del numbers[name]
+    else:
+        print(name," was not found")
+ 
+def load_numbers(numbers, filename):
+    in_file = open(filename, "rt")
+    while True:
+        in_line = in_file.readline()
+        if not in_line:
+            break
+        in_line = in_line[:-1]
+        name, number = in_line.split(",")
+        numbers[name] = number
+    in_file.close()
+ 
+def save_numbers(numbers, filename):
+    out_file = open(filename, "wt")
+    for k, v in numbers.items():
+        out_file.write(k + "," + v + "\n")
+    out_file.close()
+ 
+def print_menu():
+    print('1. Print Phone Numbers')
+    print('2. Add a Phone Number')
+    print('3. Remove a Phone Number')
+    print('4. Lookup a Phone Number')
+    print('5. Load numbers')
+    print('6. Save numbers')
+    print('7. Quit')
+    print()
+ 
+phone_list = {}
+menu_choice = 0
+print_menu()
+while True:
+    menu_choice = int(input("Type in a number (1-7): "))
+    if menu_choice == 1:
+        print_numbers(phone_list)
+    elif menu_choice == 2:
+        print("Add Name and Number")
+        name = input("Name: ")
+        phone = input("Number: ")
+        add_number(phone_list, name, phone)
+    elif menu_choice == 3:
+        print("Remove Name and Number")
+        name = input("Name: ")
+        remove_number(phone_list, name)
+    elif menu_choice == 4:
+        print("Lookup Number")
+        name = input("Name: ")
+        print(lookup_number(phone_list, name))
+    elif menu_choice == 5:
+        filename = input("Filename to load: ")
+        load_numbers(phone_list, filename)
+    elif menu_choice == 6:
+        filename = input("Filename to save: ")
+        save_numbers(phone_list, filename)
+    elif menu_choice == 7:
+        break
+    else:
+        print_menu()
+ 
+print("Goodbye")
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
