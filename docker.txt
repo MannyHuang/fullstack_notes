@@ -1,0 +1,19 @@
+# show running containers
+docker ps
+
+# show all containers
+docker ps -a
+
+# run one time command in the container
+docker run busybox ls
+
+# docker run = docker create + docker start
+
+# remove unused containers and images
+docker system prune
+
+# executing commands in running container
+terminal 1:
+  docker run redis
+terminal 2:
+  docker exec -it <contianerId> redis-cli

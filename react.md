@@ -203,3 +203,11 @@ effect hook
 ## side effects
 data fetching
 manually changing DOM
+
+# pattern: render props
+
+```js
+<DataProvider render={data => (
+  <h1>Hello {data.target}</h1>
+)}/>
+```
