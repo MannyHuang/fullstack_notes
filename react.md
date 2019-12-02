@@ -211,3 +211,11 @@ manually changing DOM
   <h1>Hello {data.target}</h1>
 )}/>
 ```
+
+# CRA customization
+```
+- eslint: https://create-react-app.dev/docs/setting-up-your-editor/
+- webstorm integration: https://www.jetbrains.com/help/webstorm/react.html
+- react-app-rewired: https://github.com/timarney/react-app-rewired
+- customize-cra: https://github.com/arackaf/customize-cra
+```
