@@ -725,8 +725,7 @@ generator.next()  // { value: undefined, done: true }
 
 ## 浏览器 Event Loop 的执行顺序
 
-- 事件循环是指: 执行一个宏任务，然后执行清空微任务列表，循环再执行宏任务，再清微任务列表
-- macrotask => 同步代码 => microstask => macrotask
+- 同步代码 => microstask => macrotask
 - 宏任务 macrotask
   - script / setTimout / IO / UI Rendering
 - 微任务 microtask
@@ -862,3 +861,50 @@ function jsonp(url, jsonpCallback, success) {
 - simplify the task of writing iterators.
 - produces a sequence of results instead of a single value
 - a function which returns an object on which you can call next()
+
+
+## History
+- 1990 Tim Berners-Lee
+  create first browser and server
+- 1991 High performance computing act
+  provide funding for first popular browser: Mosaic
+- 1993 Mosaic released on Unix, Mac, Windows
+  no Js yet, just DOM (not standardized)
+- 1994 - 2000 netscape dominated
+  tried to make things more interactive
+  java on the web? no
+- 1995 Brendan Eich put scheme on browser (Js born)
+  first version of Js born (called Mocha)
+    created in 10 days
+    syntax like Java
+    firt class function like Scheme
+    dynamic typing like lisp
+    prototypes like self
+  second version call liveScript
+  by the end of the year: JavaScript
+- 1996 Microsft market JavaScript as JScript
+- 1997 First EcmaScript standarization
+  no strict equality, regex, trycatch
+- 1999 ES3 
+  yes strict equality,
+- 2003 Douglas Crockford
+  created JSON 
+- 2000s ES3.1 & ES4 happend at the same time
+- 2006 JQuery born
+  first mature library to bridge the gap between browsers
+- 2007 Atwood's law
+  any application that can be written in JavaSciprt,
+  will eventually be written in JavaScript
+- 2008 chrome and V8 engine born
+- 2009 Ryan Dahl invented NodeJs
+- 2009 ES5 based on ES3.1
+  strict mode, json support
+- 2010 frameworks for SPA
+  angular: declaritive
+  backbone: imperitive
+  coffescript: made transpiling popular
+  underscore: utility library
+- 2015 ES6
+  babel
+  typescript
+  react
