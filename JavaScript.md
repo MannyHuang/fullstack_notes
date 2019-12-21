@@ -1,5 +1,16 @@
 # JavaScript
 
+## 什么是JavaScript？
+- 一个
+- single-threaded
+- garbage-collected
+- interepted or JIT compiled
+- prototype-based
+- multi-paradigmed
+- dynamic
+- weakly-typed的语言, 且拥有一个
+- non-blocking event loop
+
 ## 数据类型
 
 - 原始数据类型存在栈（stack）中
