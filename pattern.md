@@ -66,6 +66,19 @@ https://github.com/skyline75489/what-happens-when-zh_CN/blob/master/README.rst?u
 
 ## 知道什么是 singleton, factory, strategy, decrator， MVVM 么?
 
+MVC
+	model
+	view
+	controller
+MVP
+	model
+	view
+	presenter
+MVVM
+	view (React)
+	view model
+	model
+
 ## 介绍下观察者模式和订阅-发布模式的区别，各自适用于什么场景
 
 - 观察者模式中主体和观察者是互相感知的，发布-订阅模式是借助第三方来实现调度的，发布者和订阅者之间互不感知

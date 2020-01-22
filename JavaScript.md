@@ -1,6 +1,7 @@
 # JavaScript
 
-## 什么是JavaScript？
+## 什么是 JavaScript？
+
 - 一个
 - single-threaded
 - garbage-collected
@@ -8,7 +9,7 @@
 - prototype-based
 - multi-paradigmed
 - dynamic
-- weakly-typed的语言, 且拥有一个
+- weakly-typed 的语言, 且拥有一个
 - non-blocking event loop
 
 ## 数据类型
@@ -407,26 +408,38 @@ btn.onclick = function(){}
 
 ## javascript 代码中的"use strict";是什么意思 ?
 
-- ES5 添加的（严格）运行模式
-- 消除 Javascript 语法的一些不合理、不严谨之处，减少一些怪异行为。
+- ES5 添加的新运行模式
+- 消除 Javascript 语法的一些不合理行为
 - 不能在意外的情况下给全局变量赋值
-- 全局变量的显示声明,函数必须声明在顶层，
+- 全局变量的显示声明,函数必须声明在顶层
 - 不允许在非函数代码块内声明函数
 
 ## eval 是做什么的？
 
 - 它的功能是把对应的字符串解析成 JS 代码并运行
-- 应该避免使用 eval，不安全，非常耗性能
+- 应该避免使用 eval
+  - 不安全
+  - 非常耗性能
 
 ## 什么是模块化开发？
 
-- 在浏览器中使用 ES6 的模块化支持
-  - import / export
-- 在 Node 中使用 commonjs 的模块化支持
-  - require / module.exports / exports
-- amd
-  - require / defined
-
+- Node / browser: use es6 module system
+  - syntax: import/output 
+  - support async and sync
+- old NodeJs: use commonjs module
+  - syntax: require / module.exports
+  - sync
+  - dependency determined at runtime
+- old browser: amd
+  - syntax: define/require
+  - async
+  - dependency determined at runtime
+- old browser: cmd
+  - similar to amd
+- umd = commonJs + amd
+  - if nodeJs env: use commonJs
+  - if function named 'define' exist: use amd
+  - else use window or global object
 ## requre 与 import 的区别？
 
 - require 支持 动态导入，import 不支持，正在提案 (babel 下可支持)
@@ -465,9 +478,8 @@ define(['./a', './b'], function(a, b) { // 依赖必须一开始就写好
 ## Javascript 如何实现继承？
 
 1、构造继承：用构造函数实现继承
+
 ```js
-
-
 ```
 
 2、原型继承
@@ -677,8 +689,6 @@ generator.next()  // { value: undefined, done: true }
 
 ## What advantage is there for using the arrow syntax for a method in a constructor?
 
-## What is the definition of a higher-order function?
-
 ## Can you give an example of a curry function and why this syntax offers an advantage?
 
 ## Why you might want to create static class members?
@@ -688,8 +698,6 @@ generator.next()  // { value: undefined, done: true }
 ## 原型 / 构造函数 / 实例 之间的关系
 
 ## 原型链
-
-## 变量对象
 
 ## 继承
 
@@ -828,7 +836,8 @@ Array.isArray(arr); // es5
 - 功能限制：只能支持 get 请求
 - 安全问题：xss
   ```html
-  http://127.0.0.1/getUsers.php?callback=<script>
+  http://127.0.0.1/getUsers.php?callback=
+  <script>
     alert(/xss/);
   </script>
   ```
@@ -862,8 +871,8 @@ function jsonp(url, jsonpCallback, success) {
 - produces a sequence of results instead of a single value
 - a function which returns an object on which you can call next()
 
-
 ## History
+
 - 1990 Tim Berners-Lee
   create first browser and server
 - 1991 High performance computing act
@@ -875,20 +884,20 @@ function jsonp(url, jsonpCallback, success) {
   java on the web? no
 - 1995 Brendan Eich put scheme on browser (Js born)
   first version of Js born (called Mocha)
-    created in 10 days
-    syntax like Java
-    firt class function like Scheme
-    dynamic typing like lisp
-    prototypes like self
+  created in 10 days
+  syntax like Java
+  firt class function like Scheme
+  dynamic typing like lisp
+  prototypes like self
   second version call liveScript
   by the end of the year: JavaScript
 - 1996 Microsft market JavaScript as JScript
 - 1997 First EcmaScript standarization
   no strict equality, regex, trycatch
-- 1999 ES3 
+- 1999 ES3
   yes strict equality,
 - 2003 Douglas Crockford
-  created JSON 
+  created JSON
 - 2000s ES3.1 & ES4 happend at the same time
 - 2006 JQuery born
   first mature library to bridge the gap between browsers

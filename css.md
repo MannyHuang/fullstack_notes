@@ -348,7 +348,25 @@
 39 .col-12{width:100%;}
 ```
 
+
 - media query
+  common breakpoints
+  ipad mini: 1024
+  ipad: 1024
+  ipad pro 10.5: 1112
+  ipad pro 12.9: 1366
+  small laptop: 1280
+
+
+```css
+@media (min-width:320px)  { /* smartphones, portrait iPhone, portrait 480x320 phones (Android) */ }
+@media (min-width:480px)  { /* smartphones, Android phones, landscape iPhone */ }
+@media (min-width:600px)  { /* portrait tablets, portrait iPad, e-readers (Nook/Kindle), landscape 800x480 phones (Android) */ }
+@media (min-width:801px)  { /* tablet, landscape iPad, lo-res laptops ands desktops */ }
+@media (min-width:1025px) { /* big landscape tablets, laptops, and desktops */ }
+@media (min-width:1281px) { /* hi-res laptops and desktops */ }
+
+```
 
 ```css
 /* 移动端优先: */
