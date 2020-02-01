@@ -59,16 +59,14 @@ componentWillUnmount()
 
 
 ## Redux 使用流程
-
-- Redux 介绍
-  - redux 是 react 应用的状态管理机制
-  - 为了解决多页面多组件之间的数据通信
-  - 单一数据源: 所有 state 最终维护在一个根级 Store
-  - 状态只读: 数据无法被直接修改
-  - 主要有 Store、Action、Reducer 三部分组成
-    - component 发起 action 操作修改 store 中 的 state
-    - reducers 根据 action 和当前的 state 获得新的 state
-    - redux 使用 getState 方法通知页面更新视图
+- redux 是 react 应用的状态管理机制
+- 为了解决多页面多组件之间的数据通信
+- 单一数据源: 所有 state 最终维护在一个根级 Store
+- 状态只读: 数据无法被直接修改
+- 主要有 Store、Action、Reducer 三部分组成
+  - component 发起 action 操作修改 store 中 的 state
+  - reducers 根据 action 和当前的 state 获得新的 state
+  - redux 使用 getState 方法通知页面更新视图
 
 - Redux Data loading cycle
   - component rendered

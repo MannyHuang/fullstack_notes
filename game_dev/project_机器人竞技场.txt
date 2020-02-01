@@ -1,0 +1,39 @@
+
+/**************************************************
+features
+**************************************************/
+a minimap
+enemy tank AI
+throttle / health indicator
+custom terrain
+tank
+  static mesh components
+    tracks
+      rolling track: https://community.gamedev.tv/t/building-a-suspension-for-the-tank/3627/34
+    body
+    turret and barrel
+  Sound effects
+    gun firing
+    explosion
+    barrel moving
+    turret moving
+    engine sound
+    BGM
+  recoil
+  smoke after firing
+  leaves trace on the ground
+  speed limit
+  cannon
+    pitch angle: limit to a range
+    yaw angle: 360 degrees
+    move and fire at the same time
+  suspension system
+  zoom in when aim
+  tracks appears to be rolling
+  shell selection
+  different tank types
+
+/**************************************************
+Design flow
+**************************************************/
+world -> tank -> controls -> player 2-> UI -> world
