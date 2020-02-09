@@ -440,6 +440,8 @@ btn.onclick = function(){}
   - if nodeJs env: use commonJs
   - if function named 'define' exist: use amd
   - else use window or global object
+
+  
 ## requre 与 import 的区别？
 
 - require 支持 动态导入，import 不支持，正在提案 (babel 下可支持)
@@ -652,6 +654,11 @@ generator.next()  // { value: 'ending', done: true }
 
 generator.next()  // { value: undefined, done: true }
 ```
+
+## Memory Leak
+- global variables
+- event listeners
+- setInterval
 
 ## Explain event delegation.
 
