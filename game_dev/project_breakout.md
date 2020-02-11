@@ -1,3 +1,15 @@
+## shortlist of features to add
+- improve score calculation based on block hit and block desctruction
+- slow down time on special block hit
+- manny balls at start with very long paddle
+- add keyboard support
+spawn manny blocks in different direction on special block - hit
+change the hit vfx and increase size of the ball on block - hit
+make the surrounding environment dark and light source to - the ball instead
+reverse camera to enable bottom top gameplay to break user - tempo
+- reference
+  - https://community.gamedev.tv/tags/34_BR_CUD?utm_source=udemy.com&utm_medium=Automation&utm_campaign=tag_links
+
 ## History
 - Breakout (Atari, 1976)
 	- paddle & ball vs. blocks
