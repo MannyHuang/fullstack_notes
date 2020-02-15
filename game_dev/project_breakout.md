@@ -1,6 +1,7 @@
 ## shortlist of features to add
 - improve score calculation based on block hit and block desctruction
 - slow down time on special block hit
+- display current level
 - manny balls at start with very long paddle
 - add keyboard support
 spawn manny blocks in different direction on special block - hit
@@ -39,7 +40,8 @@ reverse camera to enable bottom top gameplay to break user - tempo
   - a hole sucks in the ball and auto-releases it at pre-determined trajectory
   - wedge shape, force ball to return at less-predictable angle
   - channel shape, constrains ball's movement along a new angle
-- Ball speed amplifiers
+- Ball speed
+  - amplifiers
   - bumpers or regions that speed up the ball
 - moving powerups and powerdowns
   - makes them harder/easier to obtain
