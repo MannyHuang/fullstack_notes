@@ -91,6 +91,10 @@
 - ExpressVPN
 - NordVPN
 
+## record screen
+- built-in recorder: shift + cmd + 5
+- route system audio to built-in recorder: sunflower extension
+
 ## hardware
 - Ze Desktop
   - CPU: 英特尔（Intel） i7 7700K 酷睿四核 盒装CPU处理器
