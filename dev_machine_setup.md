@@ -16,6 +16,9 @@
 
 ## IDE & editors
 - visual studio code (general purpose)
+  - eslint: code quality check
+  - path intellisense: filename autocomplete
+  - prettier: formatter
 - intellij-idea-ce (java)
 - webstorm (JavaScript)
 
