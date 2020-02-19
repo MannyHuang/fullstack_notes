@@ -61,9 +61,43 @@
 
 ## advanced concepts
 - intersection types
+  - combine other types
+  - will have member properties of all types
+- union types
+  - one of the types
 - type guards
+  - typeof
+  - in keyword
+  - instanceof
+  - discriminated union pattern
+    - one common property across interfaces to allow case statements
 - discriminated unions
 - type casting
+- indexed properties
+  - used when prop name can vary, and number of props can vary
+  - other named prop must have the same type
+- function overloads
+- optional chaining
+- nullish coalescing
+
+## Generics
+- type flexibility + type safety
+- pass type info to a function, to allow better type inference on the result
+- can apply constraints using extends keyword
+- constraint
+- generic utility types
+  - Partial<>
+  - Readonly<>
+
+## decorators
+- a form of meta programming
+  - code that improves coding experience
+- just a function
+- decorator executes when class is defined
+- places where decorators can be added
+  - class decorator
+  - property decorator
+  - accesor & parameter decorator
 
 
 ## tsc compliation setup

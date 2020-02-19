@@ -18,8 +18,21 @@
 
 ## intellij keymap
 - go to line
-  cmd + l
+  - cmd + l
 - open file
-  cmd + shift + o
+  - cmd + shift + o
 - find file
-  cmd + shift + f
+  - cmd + shift + f
+- move word by word
+  - alt + ->
+- delete word by word
+  - alt + del
+
+## chrome extension: vimium
+- close/restore tab: x/X
+- navigate tab: J/K
+- scroll up/down: j/k
+- forward/back in history: L/H
+- show links on the page
+- open url: O
+- copy current url: yy
