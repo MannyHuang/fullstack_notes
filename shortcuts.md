@@ -1,7 +1,11 @@
 
 
 ## mac system shortcuts
-- offical mac default shortcuts
+- go to start of line
+  - cmd + left
+- delete entire line
+  - cmd + d
+- offical mac default shortcuts reference
 	- https://support.apple.com/zh-hk/HT201236
   - https://support.apple.com/zh-hk/HT204434
 
@@ -27,6 +31,15 @@
   - alt + ->
 - delete word by word
   - alt + del
+- auto complete
+  - ctrl + space
+- complete hinted action
+  - option + enter
+- select all occurances of word
+  - cmd + F2
+- add thing in front of all selected lines
+  - shift + option + i
+  - command + left
 
 ## chrome extension: vimium
 - close/restore tab: x/X

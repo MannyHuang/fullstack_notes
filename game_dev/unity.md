@@ -115,6 +115,29 @@
   - odin
   - playmaker
 
+## design steps
+- core
+  - set up camera
+    - aspect ratio
+    - canvas resolution
+  - player
+    - movement
+    - shooting
+    - health
+  - enemy
+    - movement
+    - sqawn waves
+    - health
+- secondary
+  - score
+  - shooting
+- polish
+  - visual effects
+  - sound effects
+  - menu / screen
+  - content / tuning
+
+
 
 ## data structures in games
 
@@ -149,14 +172,29 @@
 - rigid body
 - collision detection
 
-## books
+## gameplay and engine books
 * 游戏编程算法与技巧
 * 游戏编程模式
 * 游戏引擎架构
 * realtime rendering 3rd
 * Fundations of physically based modelling
 
-## game design
+## art tools
+- Autodesk Sketchbook
+- KRITA
+- UDM Paint (64 bit version)
+  - License Key / Serial Number: UPLN91-8VK8HA-C72YUL-XA2LRY-8CYYOK
+- Corel Painter Essentials 7
+  - License Key / Serial Number: PE07B22-WZT96G3-TZPLCKY-XDWCJAE
+
+## music tools
+- pond5
+- turbosquid
+- freesound
+- musicbed
+- envato
+
+## game design resources
 - 龙与地下城城主手册
 - 战旗类经典的资料
 
