@@ -1,33 +1,30 @@
-#*************************************************************************
-#Programming Language (Unix)
-#*************************************************************************
+# Unix
 
-#Fundamental Commands
-1.Remove file:
-	1.rm -f to force remove a file
-	2.rm -rf to force remove the whole directory
-	3.rm -rf * to delete the whole system (in administrator mode)
+## file navigation
+- Remove file
+	- rm -f to force remove a file
+	- rm -rf to force remove the whole directory
+	- rm -rf * to delete the whole system (in administrator mode)
 
-2.Copy and paste text:
-	1.highlight the text
-	2.shift + Insert
+- List file
+	- ls (simple table format)
+	- ls -lrt (longlist format with modification time sorted)
+	- ls -a (show hidden files, files start with .)
 	
-3.List files:
-	1.ls (simple table format)
-	2.ls -lrt (longlist format with modification time sorted)
-	3.ls -a (show hidden files, files start with .
+- find and delete file
+	- find ./ -name "*.js" -type f -delete
+
+## compression
+- compress file 
+	- tar -cvzf filename.tar.gz filename/ (tar.gz)
+
+- decompress file
+	- tar -xvzf filename.tar.gz (tar.gz or tgz)
+	- tar -xvjf filename.tar.bz2 (bzip2)
+	- zcat filename.tar.Z | tar xf - (Z or Huffman coding)
 	
-4.Viewing compressed files:
-	1.vim filename (Editor)
-	2.zless filename (stream to output)
-	3.Decompress: 
-		1.tar -xvzf filename.tar.gz (tar.gz or tgz)
-		2.tar -xvjf filename.tar.bz2 (bzip2)
-		3.zcat filename.tar.Z | tar xf - (Z or Huffman coding)
-	4.Compress:
-		1.tar -cvzf filename.tar.gz filename/ (tar.gz)
-	
-	
+
+## search
 5.Searching Keywords:
 	1.grep (when special character are part of the keyword)
 		1.grep keyword file_name 
@@ -94,18 +91,6 @@
 22.check digital footprint
 	1.md5sum file
 
-23.perforce operations
-	1.p4 filelog -l file_name
-	2.cd $FLOW_DIR/supra 
-	3.p4 add -t kxtext scripts/route/spefcmp.pl scripts/route/plot_correlation.pl (add text with executable property)
-	4.p4 edit actions/route/IcAutoRoutePattern.csh
-	5.p4 edit templates/icc_shell/IcAutoRoutePattern.cmd
-	6.p4 diff
-	7.p4 diff | less
-	8.p4 resolve
-	9.p4 submit
-	10.p4 submit -c 359485
-   
 24.date formatting
 	1.date +'%d/%m/%y'
 	
@@ -118,15 +103,7 @@
 27.create your own commands
 	1.cd /usr/local/bin
 	2.create the shell script and add execution permission
-		
-		page 71
-		
-		
-		
-		
-		
-		
-		
+
 		
 		
 		

@@ -28,6 +28,7 @@
 - 宝石迷阵
 - 植物大战僵尸
 - 塔防游戏
+- missle commander
 - 找Asset Store上面的完整工程，找自己感兴趣的开始复刻
 
 ## Prequisites
@@ -195,7 +196,14 @@
 - envato
 
 ## game design resources
+- Theory of Fun for Game Design
+- The Design of Everyday Things: Revised and Expanded Edition
+- The Laws of Simplicity
+- The Art of Game Design: A Book of Lenses, Third Edition
+- Game Feel
+- Level Up! The Guide to Great Video Game Design
 - 龙与地下城城主手册
+- Blood Sweat and Pixels
 - 战旗类经典的资料
 
 ## people
