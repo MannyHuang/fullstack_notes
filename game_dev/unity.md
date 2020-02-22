@@ -180,15 +180,24 @@
 * realtime rendering 3rd
 * Fundations of physically based modelling
 
+## game engines
+- AAA game: unreal
+- indie 3D: unity
+- indie 2D: unity / godot
+- indie 2D with no dev: rpgmaker
+
 ## art tools
 - Autodesk Sketchbook
-- KRITA
+- 2D art: KRITA
+- 2D vector art: Inkscape
+- SFX: LMMS
 - UDM Paint (64 bit version)
   - License Key / Serial Number: UPLN91-8VK8HA-C72YUL-XA2LRY-8CYYOK
 - Corel Painter Essentials 7
   - License Key / Serial Number: PE07B22-WZT96G3-TZPLCKY-XDWCJAE
 
 ## music tools
+- audacity
 - pond5
 - turbosquid
 - freesound
