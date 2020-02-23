@@ -22,3 +22,16 @@
   * problems arise when a client requests too many nested fields at once
 * Rate Limiting
 * Caching
+
+## ecosystem
+
+- FE
+  - appollo client
+  - Graphql code generators
+- BE
+  - typegraphql
+  - server: appollo server + express
+  - orm: typeorm
+  - N+1 problem: dataloader
+  - services: prisma
+  - spectrum example project

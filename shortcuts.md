@@ -20,7 +20,7 @@
 - gp: git push
 - gst: git status
 
-## intellij keymap
+## intellij IDE keymap
 - go to line
   - cmd + l
 - open file
@@ -40,6 +40,18 @@
 - add thing in front of all selected lines
   - shift + option + i
   - command + left
+
+## iterm2
+- clear screen: cmd + R
+- split screen: cmd + d
+- navigate between split screen: cmd + arrow key
+- open link: cmd + click
+- move cursor by word: option + arrow key
+- move cursor to start/end of line: cmd + arrow key
+  - Go to Preferences... > Profiles > Keys (not Preferences... > Keys)
+  - Press Presets...
+  - Select Natural Text Editing
+- history replay: cmd + option + b
 
 ## chrome extension: vimium
 - close/restore tab: x/X

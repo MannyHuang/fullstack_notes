@@ -39,6 +39,9 @@
 - drop the collection: db.courses.drop()
 - drop the db: db.dropDatabase()
 
+## import data
+- mongoimport tv-shows.json -d movieData -c movies --jsonArray --drop
+
 ## CRUD operations
 - create: insertOne, insertMany
 - read: findOne, find
@@ -69,13 +72,34 @@
 - types of relation
   - reference (like traditional relation))
   - nested document
-- use embeded document
+- should use embeded document
   - strong one-one relation
+  - one-many relation, in which manny is a small
+  - many-many, where data reflect historical record
+- should use references
+  - many-many, where data needs to be latest
+  - one-many relation, in which manny is a lot
 
 ## db engine
 - data stored as Bson
   - driver converts json to bson
   - bson supports some other types (ex. objectId())  
+
+## create: insert, insertMany
+- ordered vs non-ordered insert
+  - ordered insert
+    - insert one by one
+    - if one fails, stop and no rollback
+  - non-ordered insert
+    - insert all
+    - no stop if one fails
+    - use this if care about inserting missing documents
+- writeConcern
+  - determine if write to journal needs to be confirmed
+  - deternube timeout for a write
+  - db.profs.insertOne({name: "leo"}, {writeConcern: {w:1, j:true}})
+- atomicity
+  - transcation either succeed or fail (per document level)
 
 ## network
 - default port: 27017
