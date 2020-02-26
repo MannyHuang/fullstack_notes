@@ -173,10 +173,6 @@ document.body.append(script); // (*)
 
 ## 事件代理
 
-## What are `data-` attributes good for?
-
 ## Consider HTML5 as an open web platform. What are the building blocks of HTML5?
 
 ## Why you would use a `srcset` attribute in an image tag? Explain the process the browser uses when evaluating the content of this attribute.
-
-## Have you used different HTML templating languages before?

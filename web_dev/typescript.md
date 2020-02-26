@@ -99,7 +99,6 @@
   - property decorator
   - accesor & parameter decorator
 
-
 ## tsc compliation setup
 - tsc --init
 - tsc -w

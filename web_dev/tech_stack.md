@@ -8,10 +8,10 @@
 - CSS库/组件库: umi, dva, antd
 - CSS预处理: sass, less
 - utility: lodash, rxjs, ramda(fp)
-- bundling: webpack, rollup
+- bundler: webpack, rollup
 - 框架：
-  - React, Vue, Angular
-  - 跨平台移动端框架：React native, flutter, Ionic
+  - desktop UI framework: React, Vue, Angular
+  - mobile UI framework：React native, flutter, Ionic
   - server side render: Next
 - 状态管理：Redux，Redux saga，mobx, vuex
 - 规范检查: ESLINT, TSLint
@@ -21,6 +21,9 @@
 - 版本控制：git
 - 设计模式：Micro FE	
 - 生态
+  - React
+    - router: react-router
+    - mobile framework: react-native
   - http request: axios 
   - state management: redux
     - reselect, redux-thunk
@@ -38,6 +41,7 @@
     - d3, echarts
     - DataTables，Handsontable，Highcharts
   - gis: SuperMap, ArcGIS, GeoServer
+  - socketis: realtime communication
 
 ## BE (JS) 
 - runtime: NodeJs

@@ -1,6 +1,6 @@
 ## SQL
 
-# Overview
+## Overview
 - ecosystem
   - MySql
   - PSql
@@ -20,6 +20,13 @@
   - predictable
 - cons
   - frequent read of complex relation is slow
+
+## installation
+- run mysql docker container
+  - docker run --name mysql -e MYSQL_ROOT_PASSWORD=921021 -d -p 3306:3306 -v mysql_data:/var/lib/mysql/data mysql:5.7
+
+- run psql docker container
+  - docker run --name postgres -e POSTGRES_PASSWORD=921021 -d -p 5432:5432 -v postgres_data:/var/lib/postgresql/data postgres
 
 ## SQL syntax
 - SELECT, FROM, and WHERE

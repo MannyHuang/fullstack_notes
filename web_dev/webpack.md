@@ -1,5 +1,11 @@
-## 如何实现一个简单的 webpack
+# Webpack
 
+## why webpack
+- resolve module dependency automatically
+- prevent namespace pollution
+- automate build process
+
+## 如何实现一个简单的 webpack
 - 读取文件分析模块依赖
 - 对模块进行解析执行(深度遍历)
 - 针对不同的模块使用相应的 loader
