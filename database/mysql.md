@@ -43,3 +43,29 @@
 - What’s a prepared statement and why do we use them?
 
 
+
+
+
+Login to your MYSQL console.
+USE <name_of_your_database>;
+SOURCE <path_of_your_.sql_file>
+
+
+//login to mysql
+mysql -u root -p
+
+//set user password
+ALTER USER 'root'@'localhost' IDENTIFIED BY '921021';
+
+//list existing databases
+show databases;
+
+//create new database
+create database huoshui;
+
+//add user to database
+CREATE USER 'admin'@'localhost';
+GRANT ALL PRIVILEGES ON *.* TO 'admin'@'localhost';
+
+//show all users
+SELECT User FROM mysql.user;

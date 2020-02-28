@@ -5,6 +5,9 @@
 - module
 - main
 
+## routing
+- not managed centrally (unlike angular)
+- determined in the controllers
 
 ## controller
 - handle http requests and delegate complex tasks to providers
@@ -30,7 +33,7 @@
   - property-based injection
 
 ## services
-- responsible for data storage, retrieval
+- responsible for data storage & retrieval
 
 ## module
 - class annotated with @module decorator
@@ -49,7 +52,17 @@
   - exports
     - providers should be available to other modules that import this module
 
-## middlewares
+## Aspect oriented programming
+- solve cross-cutting concerns
+- related features
+  - middlewares
+  - interceptors (beforem stream manipulation)
+  - guards
+  - interceptors (after stream manipulation)
+  - exception filters
+
+
+## middleware
 - functions called before route handlers
 - a function implementing NestMiddleware interface
 - have access to request and response objects
@@ -58,18 +71,54 @@
   - change req, res
   - end req, res cycle
   - call next() to pass control if not ending req, res cycle
-- functional middleware: middleware that is a function and requires no dependency
+- functional middleware
+  - a function and requires no dependency
 
-## pipes
-- use cases
-  - transformation
-  - validation
+## exception filters
+- extends HttpException
+- default global exception filter will catch all HttpException
 
-## guards
+## pipe
+- two use cases
+  - transformation: input => output
+  - validation: throw exception if invalid
+- operate on arguments processed by controller route handler
+- no controller method is executed if exception is thrown
+- built-in pieples
+  - ValidationPipe
+  - ParseIntPipe
+  - ParseUUIDPipe
+
+## guard
+- determines if a given request should be handled by the route handler
+  - depending on permission, roles, ACLs, etc.
+- implement CanActivate interface
+- executed after each middleware, before interceptor or pipe
+- guard vs middleware
+  - middleware suitable for authentication
+  - guard more suitable for authorization, as it's aware of what will be executed next
 
 ## interceptors
+- implement NestInterceptor interface
+- bind extra login before/after function execution
+  - transform returned ressult
+  - transform exception thrown
 
-## custom decorators
+oop
+  patterns
+    IOC: inversion of control
+    SOC: 
+	decoupling
+		inversion of control
+	
+## DTO
+- exist between network transfer boundaries
+- should not contain business logic
+- internal consistency check
+- basic validation
+
+## ORM
+- data access layer (like dao layer in Java)
 
 
 ## CLI
@@ -78,3 +127,32 @@
 - file generators
   - nest g controller courses
   - nest g service courses
+
+
+## authentication vs authorization
+- authentication
+  - decides if user is what he claims to be
+  - method
+    - login form
+    - HTTP authentication
+    - http digest
+    - x.509 certificates
+- authorization
+  - decides if user allows to do something
+  - method
+    - access controls for URLs
+    - secure objects and methods
+    - access control lists (ACLs)
+
+## authentication using passport
+- steps
+  - authenticate user by verifying password, jwt
+  - manage authenticated state
+    - issue a JWT token
+    - or create express session
+  - attach authenticated user info to Request object for use in route handlers
+- not logged in user
+  - restrict protected routes
+  - trigger local passport strategy on auth/login route
+- logged in user
+  - restrict protected routes

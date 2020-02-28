@@ -49,7 +49,9 @@
   - REST: Express, Nest
   - Graphql: Apollo, TypeGraphql
   - query builder: knex
-  - orm: objection.js
+  - orm: TypeORM, sequelize, objection.js, mongoose
+  - middlewares:
+    - set http response headers to enhance security: helmet
 - database
   - sql: psql, mysql
   - nosql: mongo

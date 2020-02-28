@@ -31,7 +31,9 @@
 ## CLI
 - clear the window: cls
 - list dbs: show dbs
-- use <db_name>
+- select db: use <db_name>
+- list collections: show collections
+- delete collection: db.courses.drop();
 - db.courses.insertOne({name: "some course name"})
 - db.courses.insertOne({name: "another course", prof: "someone"})
 - db.courses.insertOne({name: "course 3", rate: {rate1: "1", rate2: "2", rate3: "3"}})
@@ -100,6 +102,11 @@
   - db.profs.insertOne({name: "leo"}, {writeConcern: {w:1, j:true}})
 - atomicity
   - transcation either succeed or fail (per document level)
+
+## scaling
+- replica set: multiple instances of the same dataset with a - master slave model
+- mongodb sharding:
+  - vertical scaling vs horizontal scaling (sharding)
 
 ## network
 - default port: 27017
