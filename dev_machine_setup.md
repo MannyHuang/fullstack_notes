@@ -98,6 +98,14 @@
 - built-in recorder: shift + cmd + 5
 - route system audio to built-in recorder: sunflower extension
 
+## video to gif conversion
+- brew install node
+- brew install ffmpeg
+- brew install imagemagick
+- brew install giflossy
+- npm install -g gifify
+- gifify demo.mov -o demo.gif --compress 10
+
 ## hardware
 - Ze Desktop
   - CPU: 英特尔（Intel） i7 7700K 酷睿四核 盒装CPU处理器

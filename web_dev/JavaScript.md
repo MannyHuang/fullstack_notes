@@ -1,18 +1,19 @@
 # JavaScript
 
-## 什么是 JavaScript？
-- 一个
+## What is JavaScript？
+- a
 - single-threaded
 - garbage-collected
 - interepted or JIT compiled
 - prototype-based
 - multi-paradigmed
 - dynamic
-- weakly-typed 的语言, 且拥有一个
+- weakly-typed language, with a
 - non-blocking event loop
 
-## 静态语言 vs 动态语言
+## staically typed vs dynamically typed
 - statically typed
+  - type associated with variable
 	- type check at compile time
 	- pros
 		- prevent bugs
@@ -22,19 +23,28 @@
 	- cons
 		- slow down dev time
 - dynamically typed
+  - type associated with value
 	- type check at run time
 
-## 强类型 vs 弱类型
-- strong：no type coercion
-- weak: yes type coercion
+## strongly typed vs weakly typed
+- strong
+  - no type coercion
+- weak
+  - yes type coercion
 
-## 数据类型
-- 原始数据类型存在栈（stack）中
+## primitive types vs reference types
+- prmitive types stored on the stack
   - Undefined，Null, Boolean, Number, String，Symbol
-- 引用数据类型存在堆(heap)中
+  - fixed-size
+  - occupies less space
+- reference types stored in the heap
   - Object, Array, Function
+  - dynamic size
+  - occupies more space
+  - affects performance if lives on the stack
+  - stores pointer on the stack, points to actual address in the heap
 
-## 内置函数(原生函数)
+## Internal contructor functions
 - String
 - Number
 - Boolean
@@ -46,13 +56,7 @@
 - Error
 - Symbol
 
-## 原始数据类型 VS 引用数据类型？
-- 存储位置不同
-  - 原始数据类型直接存储在栈(stack)中的简单数据段，占据空间小、大小固定，属于被频繁使用数据，所以放入栈中存储
-  - 引用数据类型存储在堆(heap)中的对象, 占据空间大、大小不固定。如果存储在栈中，将会影响程序运行的性能；
-  - 引用数据类型在栈中存储了指针，该指针指向堆中该实体的起始地址。当解释器寻找引用值时，会首先检索其在栈中的地址，取得地址后从堆中获得实体
-
-## null 和 undefined 的区别
+## null vs undefined
 - null 表示“没有值”
 - null 的类型(typeof)是 object
 - undefined 表示一个变量声明了但没有初始化

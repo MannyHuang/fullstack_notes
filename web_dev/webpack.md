@@ -4,6 +4,8 @@
 - resolve module dependency automatically
 - prevent namespace pollution
 - automate build process
+- HMR: hot module replacement
+  - update page with a full page reload
 
 ## 如何实现一个简单的 webpack
 - 读取文件分析模块依赖

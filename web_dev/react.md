@@ -57,7 +57,6 @@ componentWillUnmount()
 - 在 合成事件 和 生命周期钩子(除 componentDidUpdate) 中，setState 是"异步"的
 - 在 原生事件 和 setTimeout 中，setState 是同步的，可以马上获取更新后的值
 
-
 ## Redux 使用流程
 - redux 是 react 应用的状态管理机制
 - 为了解决多页面多组件之间的数据通信
@@ -67,7 +66,6 @@ componentWillUnmount()
   - component 发起 action 操作修改 store 中 的 state
   - reducers 根据 action 和当前的 state 获得新的 state
   - redux 使用 getState 方法通知页面更新视图
-
 - Redux Data loading cycle
   - component rendered
   - componentDidMount called
@@ -77,43 +75,110 @@ componentWillUnmount()
   - action creater returns actions with data in payload of action
   - some reducer parse and return the data
   - react-redux rerender the app
-
 - Rules of redux reducers
-  _ must not return undefined
-  _ must produce state based only on preState and action
-  _ must not reach out itself to get data
-  _ must not mutate input
+  - must not return undefined
+  - must produce state based only on preState and action
+  - must not reach out itself to get data
+  - must not mutate input
 
 ## redux 缺点
 - verbose
 - code locality
 
-## vallina react (VVM)
-View-Model (VM): Component-related code that manages simple state, passes data directly onto View, potentially passes data directly back from View
-
-View (V): How the visuals look (JSX, CSS)
-
-## react + redux
-"MVVM"/"MVC"
+## React + Redux (MVVM)
+- Model (M): Redux
+  - global state management
+- View (V): JSX + CSS
+  - how things look
+- View-Model (VM): Component
+  - manages simple state, passes data directly onto View
 
 ## react hook
-- Only call Hooks at the top level. 
-  - Don’t call Hooks inside loops, conditions, or nested functions
-- Only call Hooks from React function components
-state hook
-effect hook
-  - runs the effects after every render
-  - have access to its props and state
-  -  If returns a function, React will run it when clean up:
-  - replace: 
-    - componentDidMount, componentDidUpdate, and componentWillUnmount
+- a way to reuse stateful logic, not state
+- each hook call has completely isolated state
+- hook state is maintained between re-renders
+- pros
+  - seperate concerns: allows organizing effects around features, not life cycles
+  - only call Hooks from React function components
+- should not be used inside loops, conditions, or nested functions
+  - ensures hooks are called in the same order across re-render
+  - necessary for react to preserve state of hooks
+- only call hooks from functional components or custom hooks
+  - ensure all stateful logic in a component is clearly visible
 
-## side effects
-data fetching
-dom manipulation
+## useState hook
+- give state to functional component
+- preserve values between function calls
+- syntax
+  - intput: initial state
+  - output: 
+      - state
+      - setState method
+
+## useEffect hook
+- runs the effects after every render by default
+- have access to its props and state
+- syntax
+  - function
+  - optional 2nd argument (array of values)
+    - tells react skipp applying an effect is all values of concern hasn't changed
+- cleanup
+  - returns a function
+  - cleanup function run everytime effects is triggered again
+- replace: case in which componentDidMount + componentDidUpdate needs same behavior
+  ```js
+  useEffect(() => {
+      console.log('I just mounted!');
+  })
+  ```
+- replace: componentDidMount
+  ```js
+  useEffect(() => {
+      console.log('I just mounted!');
+  }, [])
+  ```
+- replace: componentDidUpdate
+  ```js
+  useEffect(() => {
+      console.log('count changed', props.count);
+  }, [props.count])
+  ```
+- replace: componentWillUnmount
+  ```js
+  useEffect(() => {
+      return () => console.log('I am unmounting');
+  }, [])
+  ```
+
+## Custom hooks
+- name starts with "use"
+- may call other hooks
+- not a feature, just follows the rules of hooks
+
+```js
+import React, { useState, useEffect } from 'react';
+
+function useFriendStatus(friendID) {
+  const [isOnline, setIsOnline] = useState(null);
+
+  useEffect(() => {
+    function handleStatusChange(status) {
+      setIsOnline(status.isOnline);
+    }
+
+    ChatAPI.subscribeToFriendStatus(friendID, handleStatusChange);
+    return () => {
+      ChatAPI.unsubscribeFromFriendStatus(friendID, handleStatusChange);
+    };
+  });
+
+  return isOnline;
+}
+```
 
 ## pattern: HoC（Higher-Order Component）？
-- 高阶组件不是组件，是 增强函数，可以输入一个元组件，返回出一个新的增强组件
+- 高阶组件不是组件，是 增强函数
+- 输入一个元组件，返回出一个新的增强组件
 - 高阶组件的主要作用是 代码复用，操作 状态和参数
 - 属性代理 (Props Proxy): 给元组件添加 props
 
@@ -183,9 +248,28 @@ function withAdminAuth(WrappedComponent) {
 ```
 
 # CRA customization
-```
-- eslint: https://create-react-app.dev/docs/setting-up-your-editor/
-- webstorm integration: https://www.jetbrains.com/help/webstorm/react.html
-- react-app-rewired: https://github.com/timarney/react-app-rewired
-- customize-cra: https://github.com/arackaf/customize-cra
-```
+- eslint
+  https://create-react-app.dev/docs/setting-up-your-editor/
+- webstorm integration
+  https://www.jetbrains.com/help/webstorm/react.html
+- react-app-rewired
+  https://github.com/timarney/react-app-rewired
+- customize-cra
+  https://github.com/arackaf/customize-cra
+
+  ## client-side rendering vs server-side rendering
+  - client-side rendering
+    - pros
+      - rich interaction
+      - faster response after load
+    - cons
+      - bad for seo
+      - slow initial load
+  - server-side rendering
+    - pros
+      - seo
+      - initial page load
+      - static sites
+    - cons
+      - full page reload
+      - slower page rendering

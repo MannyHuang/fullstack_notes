@@ -1,19 +1,15 @@
+# latin
 
-====================================================================================
-Latin
-====================================================================================
+# Languages derived from latin
+- origin: local language of Italy
+- French
+- Italian
+- Spanish
+- Portugese
+- Romanian
 
----------------------------------------------------------------------
-1.The History and Essence of Latin:
----------------------------------------------------------------------
-1.Languages developed from latin
-	1.Enlgish (acutually anglo-saxson)
-	2.French
-	3.Italian
-	4.Spanish
-	5.Portugese
-	6.Romanian
-2.The essence of latin: one of the local language of Italy
+# Languages influenced by latin
+- Enlgish (acutually anglo-saxson)
 
 ---------------------------------------------------------------------
 2.Latin Vocabulary (Prepositions):
