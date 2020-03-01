@@ -48,6 +48,13 @@
   - Select Natural Text Editing
 - history replay: cmd + option + b
 
+## zsh
+- create dir and cd into it: take
+- list last used dirs: d
+- go to prev dir: -
+- offical reference: 
+  - https://github.com/ohmyzsh/ohmyzsh/wiki/Cheatsheet
+
 ## chrome extension: vimium
 - close/restore tab: x/X
 - navigate tab: J/K
