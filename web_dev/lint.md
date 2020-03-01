@@ -60,9 +60,26 @@
     }
     ```
 
-https://github.com/angular/angular/blob/master/CONTRIBUTING.md#commit
-<type>(<scope>): <subject>
-<BLANK LINE>
-<body>
-<BLANK LINE>
-<footer>
+## commit message 
+- commit message standard: angular convention
+  - https://github.com/angular/angular/blob/master/CONTRIBUTING.md#commit
+- commit template
+  ```js
+  <type>(<scope>): <subject>
+  <BLANK LINE>
+  <body>
+  <BLANK LINE>
+  <footer>
+  ```
+- commit messages exmaples
+  ```js
+  fix(release): need to depend on latest rxjs and zone.js
+
+  The version in our package.json gets copied to the one we publish, and users need the latest of these.
+  ```
+
+  ```js
+  feat(bazel): enable ivy template type-checking in g3
+  ```
+- more examples
+  - https://github.com/angular/angular/commits/master
