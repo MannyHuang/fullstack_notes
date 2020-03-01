@@ -10,16 +10,27 @@
 	- git pull = git fetch + git merge
 	- git pull –rebase = git fetch + git rebase (gup)
 
-## simple workflow
-```
-git pull -r --autostash // get latest code (while reserve current change)
-if conflict
-	git rebase --continue
-git commit -m
-npm test
-git push
-
-```
+## workflow
+- pull remote changes & then push all locally changed files
+	```sh
+	git pull -r --autostash # get latest code (while reserve current change)
+	if conflict
+		git rebase --continue
+	git add .
+	git commit -m
+	npm test
+	git push
+	```
+- ammend a commit (that is not pushed yet) with new message
+	```
+	git commit --amend -m 'a new message'
+	```
+- ammend a commit (that is not pushed yet) with new changes
+	```sh
+	git add newly_changed_file.md
+	git commit --amend
+	git push
+	```
 
 ## commit message convention
 - commit message standard: angular convention
