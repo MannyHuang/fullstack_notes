@@ -31,15 +31,11 @@
 ```js
 // mounting
 constructor()
-static getDerivedStateFromProps()
 render()
 componentDidMount()
 
 // updating
-static getDerivedStateFromProps()
-shouldComponentUpdate()
-render()
-getSnapshotBeforeUpdate()
+render() // triggered when: props change, setState(), forceUpdate()
 componentDidUpdate()
 
 // unmount
