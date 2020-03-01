@@ -101,6 +101,7 @@ componentWillUnmount()
   - necessary for react to preserve state of hooks
 - only call hooks from functional components or custom hooks
   - ensure all stateful logic in a component is clearly visible
+- when multiple State or Effect Hooks in a single component, React relies on the order in which Hooks are called
 
 ## useState hook
 - give state to functional component
